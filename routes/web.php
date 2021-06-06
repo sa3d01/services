@@ -41,9 +41,9 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::resource('contact_type', 'ContactTypeController');
     Route::post('contact_type/{id}/ban', 'ContactTypeController@ban')->name('contact_type.ban');
     Route::post('contact_type/{id}/activate', 'ContactTypeController@activate')->name('contact_type.activate');
-    Route::resource('slider', 'SliderController');
-    Route::post('slider/{id}/ban', 'SliderController@ban')->name('slider.ban');
-    Route::post('slider/{id}/activate', 'SliderController@activate')->name('slider.activate');
+    Route::resource('slider', 'ProductController');
+    Route::post('slider/{id}/ban', 'ProductController@ban')->name('slider.ban');
+    Route::post('slider/{id}/activate', 'ProductController@activate')->name('slider.activate');
     Route::get('page/{type}/{for}', 'PageController@page')->name('page.edit');
     Route::put('page/{id}', 'PageController@update')->name('page.update');
 

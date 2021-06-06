@@ -20,12 +20,14 @@ class PageController extends MasterController
         $page=Page::where(['type'=>$type,'for'=>$user_type])->first();
         if (!$page)
             return $this->sendError('توجد مشكلة بالبيانات');
-        $title['ar']=$page->title_ar;
-        $title['en']=$page->title_en;
-        $result['title']=$title;
-        $note['ar']=$page->note_ar;
-        $note['en']=$page->note_en;
-        $result['note']=$note;
+
+        if (request()->header('lang')=='ar'){
+            $result['title']=$page->title_ar;
+            $result['note']=$page->note_ar;
+        }else{
+            $result['title']=$page->title_en;
+            $result['note']=$page->note_en;
+        }
         return $this->sendResponse($result);
     }
 }

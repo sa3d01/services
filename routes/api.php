@@ -34,14 +34,17 @@ Route::group([
     // General
     Route::group(['namespace' => 'General', 'prefix' => 'general'], function () {
         Route::get('settings', 'SettingController@getSettings');
+        Route::get('categories', 'CategoryController@index');
+        Route::get('categories/{id}', 'CategoryController@subCategory');
         Route::get('banks', 'BankController@index');
+        Route::get('packages', 'PackageController@index');
         Route::get('cities', 'DropDownController@cities');
         Route::get('countries', 'DropDownController@countries');
         Route::get('pages/{user_type}/{type}', 'PageController@getPage');
     });
     //Home
     Route::group(['namespace' => 'Home', 'prefix' => 'home'], function () {
-        Route::get('slider', 'SliderController@index');
+        Route::get('sliders', 'ProductController@index');
     });
     Route::get('contact-types', 'Contact\ContactController@contactTypes');
 
@@ -62,6 +65,28 @@ Route::group([
             Route::group(['prefix' => 'notifications'], function () {
                 Route::get('/', 'NotificationController@index');
                 Route::get('/{id}', 'NotificationController@show');
+            });
+        });
+        //Provider
+        Route::group([
+            'namespace' => 'Provider'
+        ], function () {
+            Route::group(['prefix' => 'provider'], function () {
+                Route::group(['prefix' => 'package-subscribe'], function () {
+                    Route::get('check', 'PackageUserController@canAdd');
+                    Route::post('check-promo-code', 'PackageUserController@checkPromoCode');
+                    Route::post('/', 'PackageUserController@subscribe');
+                });
+
+                Route::get('product', 'ProductController@products');
+                Route::get('gallery', 'ProductController@galleries');
+
+                Route::post('product', 'ProductController@store');
+
+                Route::post('product/{id}', 'ProductController@updateProduct');
+                Route::delete('product/{id}', 'ProductController@destroyProduct');
+                Route::post('gallery/{id}', 'ProductController@updateGallery');
+                Route::delete('gallery/{id}', 'ProductController@destroyGallery');
             });
         });
 

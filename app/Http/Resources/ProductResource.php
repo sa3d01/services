@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DropDownResource extends JsonResource
+class ProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,14 +15,12 @@ class DropDownResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($request->header('lang')=='ar'){
-            $name=$this->name_ar;
-        }else{
-            $name=$this->name_en;
-        }
         return [
             'id'=> (int)$this->id,
-            'name'=> $name,
+            'price'=> $this->price,
+            'parent_category'=>new CategoryResource($this->category->parent),
+            'category'=>new CategoryResource($this->category),
+            'note'=> $this->note,
         ];
     }
 }

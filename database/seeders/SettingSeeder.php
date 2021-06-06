@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Page;
+use App\Models\PromoCode;
 use App\Models\Setting;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class SettingSeeder extends Seeder
@@ -45,6 +47,12 @@ class SettingSeeder extends Seeder
             'title_ar'=>'عمولة التطبيق',
             'title_en'=>'عمولة التطبيق',
             'note_en'=>'نص عن عمولة التطبيق',
+        ]);
+        PromoCode::create([
+            'discount_percent'=>4,
+            'code'=>'Ser-2021',
+            'end_date'=>Carbon::now()->addMonth(),
+            'count_of_uses'=>100
         ]);
         Setting::create([
             'mobile'=>'+9665xxxxxxxx',

@@ -26,8 +26,13 @@ class SliderController extends MasterController
         $results=[];
         foreach ($data as $datum){
             $result['id']=$datum->id;
-            $result['title']=$datum->title;
-            $result['note']=$datum->note;
+            if (request()->header('lang')=='ar'){
+                $result['title']=$datum->title_ar;
+                $result['note']=$datum->note_ar;
+            }else{
+                $result['title']=$datum->title_en;
+                $result['note']=$datum->note_en;
+            }
             $result['image']=$datum->image;
             $results[]=$result;
         }

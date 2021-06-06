@@ -25,7 +25,11 @@ class ContactController extends MasterController
         $results = [];
         foreach ($data as $datum) {
             $result['id'] = $datum->id;
-            $result['name'] = $datum->name;
+            if (request()->header('lang')=='ar'){
+                $result['name'] = $datum->name_ar;
+            }else{
+                $result['name'] = $datum->name_en;
+            }
             $results[] = $result;
         }
         return $this->sendResponse($results);

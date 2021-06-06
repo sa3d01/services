@@ -14,12 +14,15 @@ class DropDownCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+
         $data = [];
         foreach ($this as $obj) {
             $arr['id'] = (int)$obj->id;
-            $name['ar']=$obj->name_ar;
-            $name['en']=$obj->name_en;
-            $arr['name'] = $name;
+            if ($request->header('lang')=='ar'){
+                $arr['name']=$obj->name_ar;
+            }else{
+                $arr['name']=$obj->name_en;
+            }
             $data[] = $arr;
         }
         return $data;

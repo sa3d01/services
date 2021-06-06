@@ -23,4 +23,8 @@ class Slider extends Model
         'image',
         'link',
     ];
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
 }

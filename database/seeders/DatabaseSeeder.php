@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             SliderSeeder::class,
             ContactTypeSeeder::class,
             UserSeeder::class,
+            CategorySeeder::class,
+            BankSeeder::class,
+            PackageSeeder::class,
         ]);
     }
 }
