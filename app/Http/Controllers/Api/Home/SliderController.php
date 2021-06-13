@@ -17,8 +17,8 @@ class SliderController extends MasterController
     }
     public function index(){
         $data=Slider::all()->filter(function($slider) {
-            $start_date=Carbon::createFromTimestamp($slider->start_date);
-            $end_date=Carbon::createFromTimestamp($slider->end_date);
+            $start_date=Carbon::parse($slider->start_date);
+            $end_date=Carbon::parse($slider->end_date);
             if (Carbon::now()->between($start_date, $end_date)) {
                 return $slider;
             }

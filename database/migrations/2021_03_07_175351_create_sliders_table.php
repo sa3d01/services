@@ -17,8 +17,8 @@ class CreateSlidersTable extends Migration
             $table->id();
             $table->char('type',50)->default('app');
             $table->boolean('status')->default(1);
-            $table->integer('start_date')->nullable();
-            $table->integer('end_date')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->string('title_ar')->nullable();
             $table->string('title_en')->nullable();
             $table->string('note_ar')->nullable();

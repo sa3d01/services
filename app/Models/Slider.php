@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slider extends Model
 {
-    use HasFactory,ModelBaseFunctions;
+    use HasFactory;
     private $route='slider';
     private $images_link='media/images/slider/';
     protected $fillable = [
@@ -24,7 +24,7 @@ class Slider extends Model
         'link',
     ];
     protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
 }

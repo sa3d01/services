@@ -44,7 +44,7 @@ Route::group([
     });
     //Home
     Route::group(['namespace' => 'Home', 'prefix' => 'home'], function () {
-        Route::get('sliders', 'ProductController@index');
+        Route::get('sliders', 'SliderController@index');
     });
     Route::get('contact-types', 'Contact\ContactController@contactTypes');
 
