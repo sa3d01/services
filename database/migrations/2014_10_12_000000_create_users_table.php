@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('nationality')->nullable();
             $table->foreignId('city_id')->nullable();
             $table->json('location')->nullable();
-            $table->string('image')->nullable();
             //for provider
             $table->boolean('approved')->nullable()->default(false);
             $table->string('reject_reason')->nullable();

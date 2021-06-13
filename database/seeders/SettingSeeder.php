@@ -26,12 +26,28 @@ class SettingSeeder extends Seeder
             'note_en'=>'الشروط والأحكام للمستخدم',
         ]);
         Page::create([
+            'type'=>'licence',
+            'for'=>'user',
+            'title_ar'=>'سياسة الخصوصية',
+            'title_en'=>'سياسة الخصوصية',
+            'note_ar'=>'سياسة الخصوصية للمستخدم',
+            'note_en'=>'سياسة الخصوصية للمستخدم',
+        ]);
+        Page::create([
             'type'=>'terms',
             'for'=>'provider',
             'title_ar'=>'الشروط والأحكام',
             'title_en'=>'الشروط والأحكام',
             'note_ar'=>'الشروط والأحكام لمقدم الخدمه',
             'note_en'=>'الشروط والأحكام لمقدم الخدمه',
+        ]);
+        Page::create([
+            'type'=>'licence',
+            'for'=>'provider',
+            'title_ar'=>'سياسة الخصوصية',
+            'title_en'=>'سياسة الخصوصية',
+            'note_ar'=>'سياسة الخصوصية لمقدم الخدمه',
+            'note_en'=>'سياسة الخصوصية لمقدم الخدمه',
         ]);
         Page::create([
             'type'=>'about',

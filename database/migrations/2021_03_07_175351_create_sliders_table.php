@@ -23,7 +23,6 @@ class CreateSlidersTable extends Migration
             $table->string('title_en')->nullable();
             $table->string('note_ar')->nullable();
             $table->string('note_en')->nullable();
-            $table->char('image',20)->nullable();
             $table->string('link',20)->nullable();
             $table->timestamps();
         });

@@ -2,26 +2,33 @@
 
 namespace App\Models;
 
-use App\Traits\ModelBaseFunctions;
+use App\Services\FileService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use phpDocumentor\Reflection\Types\Object_;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, HasMedia
 {
-    use HasFactory, SoftDeletes, Notifiable, HasRoles , ModelBaseFunctions;
-
-    private $route='user';
-    private $images_link='media/images/user/';
+    use HasFactory, SoftDeletes, Notifiable, HasRoles;
+    use HasMediaTrait;
+    public function registerMediaConversions($media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232)
+            ->sharpen(10);
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
-    public function getJWTCustomClaims():array
+
+    public function getJWTCustomClaims(): array
     {
         return [];
     }
@@ -33,9 +40,9 @@ class User extends Authenticatable implements JWTSubject
         'phone_verified_at',
         'password',
         'city_id',
+        'image',
         'location',
         'nationality',
-        'image',
         'email',
         'email_verified_at',
         'marketer_id',
@@ -74,31 +81,39 @@ class User extends Authenticatable implements JWTSubject
         return false;
     }
 
-    public function city():object
+    public function city(): object
     {
-        return $this->belongsTo(DropDown::class,'city_id','id');
+        return $this->belongsTo(DropDown::class, 'city_id', 'id');
     }
 
-    public function getTypeString():string
+    public function getTypeString(): string
     {
-        if ($this['type']=='USER'){
+        if ($this['type'] == 'USER') {
             return 'مستخدم';
-        }elseif ($this['type']=='PROVIDER'){
+        } elseif ($this['type'] == 'PROVIDER') {
             return 'مقدم خدمة';
-        }else{
+        } else {
             return '';
         }
     }
-
-    protected function getImageAttribute():string
+    protected function setPasswordAttribute($password)
     {
-        $dest = $this->images_link;
-        try {
-            if ($this->attributes['image'])
-                return asset($dest) . '/' . $this->attributes['image'];
-            return asset('media/images/default.jpeg');
-        } catch (\Exception $e) {
-            return asset('media/images/default.jpeg');
+        if (isset($password)) {
+            $this->attributes['password'] = bcrypt($password);
         }
+    }
+
+    protected function getImageAttribute()
+    {
+        $file = $this->getMedia("avatars")->first();
+        if ($file) {
+            return $this->getMedia("avatars")->first()->getFullUrl('thumb');
+        }
+        return asset('media/images/default.jpeg');
+    }
+
+    protected function setImageAttribute($image)
+    {
+        FileService::upload($image, $this, "avatars", true);
     }
 }

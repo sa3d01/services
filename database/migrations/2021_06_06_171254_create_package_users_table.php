@@ -21,7 +21,6 @@ class CreatePackageUsersTable extends Migration
             $table->foreign('package_id')->references('id')->on('packages');
             $table->integer('amount')->default(0);
             $table->integer('discount')->default(0);
-            $table->char('image',20)->nullable();
             $table->enum('status',['pending','rejected','accepted'])->default('pending');
             $table->timestamps();
         });

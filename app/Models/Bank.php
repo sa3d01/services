@@ -2,56 +2,37 @@
 
 namespace App\Models;
 
+use App\Services\FileService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Bank extends Model
+class Bank extends Model implements HasMedia
 {
     use HasFactory;
-    protected $fillable = ['logo','name','account_number','banned'];
-
-    private $route='bank';
-    private $images_link='media/images/bank/';
-
-    private function upload_file($file)
+    use HasMediaTrait;
+    public function registerMediaConversions($media = null): void
     {
-        $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
-        $file->move($this->images_link, $filename);
-        return $filename;
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232)
+            ->sharpen(10);
     }
+    protected $fillable = ['logo', 'name', 'account_number', 'banned'];
 
-    function deleteFileFromServer($filePath)
-    {
-        if ($filePath != null) {
-            if (file_exists($filePath)) {
-                unlink($filePath);
-            }
-        }
-    }
-
-    protected function setLogoAttribute()
-    {
-        $logo = request('logo');
-        $filename = null;
-        if (is_file($logo)) {
-            $filename = $this->upload_file($logo);
-        } elseif (filter_var($logo, FILTER_VALIDATE_URL) === True) {
-            $filename = $logo;
-        }
-        $this->attributes['logo'] = $filename;
-    }
 
     protected function getLogoAttribute()
     {
-        $dest = $this->images_link;
-        try {
-            if ($this->attributes['logo'])
-                return asset($dest) . '/' . $this->attributes['logo'];
-            return asset('media/images/logo.jpeg');
-        } catch (\Exception $e) {
-            return asset('media/images/logo.jpeg');
+        $file = $this->getMedia("logos")->first();
+        if ($file) {
+            return $this->getMedia("logos")->first()->getFullUrl('thumb');
         }
+        return asset('media/images/logo.jpeg');
     }
 
+    protected function setLogoAttribute($logo)
+    {
+        FileService::upload($logo, $this, "logos", true);
+    }
 }

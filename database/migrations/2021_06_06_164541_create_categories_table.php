@@ -18,7 +18,6 @@ class CreateCategoriesTable extends Migration
             $table->boolean('banned')->nullable()->default(false);
             $table->string('name_ar')->nullable();
             $table->string('name_en')->nullable();
-            $table->char('image',20)->nullable();
             $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('categories');
             $table->timestamps();

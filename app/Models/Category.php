@@ -2,15 +2,23 @@
 
 namespace App\Models;
 
-use App\Traits\ModelBaseFunctions;
+use App\Services\FileService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Category extends Model
+class Category extends Model implements HasMedia
 {
-    use HasFactory,ModelBaseFunctions;
-    private $route='category';
-    private $images_link='media/images/category/';
+    use HasFactory;
+    use HasMediaTrait;
+    public function registerMediaConversions($media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232)
+            ->sharpen(10);
+    }
     protected $fillable = [
         'banned',
         'name_ar',
@@ -18,8 +26,23 @@ class Category extends Model
         'image',
         'parent_id',
     ];
-    public function parent():object
+
+    public function parent(): object
     {
-        return $this->belongsTo(Category::class,'parent_id','id');
+        return $this->belongsTo(Category::class, 'parent_id', 'id');
+    }
+
+    protected function getImageAttribute()
+    {
+        $file = $this->getMedia("categories")->first();
+        if ($file) {
+            return $this->getMedia("categories")->first()->getFullUrl('thumb');
+        }
+        return asset('media/images/default.jpeg');
+    }
+
+    protected function setImageAttribute($image)
+    {
+        FileService::upload($image, $this, "categories", true);
     }
 }

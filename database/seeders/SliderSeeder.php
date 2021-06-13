@@ -23,7 +23,6 @@ class SliderSeeder extends Seeder
                 'title_en'=>'title',
                 'note_ar'=>'تفاصيل',
                 'note_en'=>'note',
-                'image'=>'default.png',
             ]);
         }
     }

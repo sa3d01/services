@@ -19,7 +19,6 @@ class CreateGalleriesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->char('image',20)->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });
