@@ -27,7 +27,7 @@ class ProfileUpdateRequest extends ApiMasterRequest
             'name' => 'nullable|string|max:110',
             'phone' => 'nullable|string|max:90|unique:users,phone,' . \request()->user()->id,
             'city_id' => 'nullable|numeric|exists:drop_downs,id',
-            'country_id' => 'nullable|numeric|exists:drop_downs,id',
+            'nationality' => 'nullable|string|max:100',
             'device.id' => 'required',
             'device.os' => 'required|in:android,ios',
             'location.lat' => 'nullable',

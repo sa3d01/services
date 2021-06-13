@@ -33,7 +33,7 @@ class ProviderLoginResourse extends JsonResource
                 'name' => $this->name,
                 'phone' => $this->phone ?? "",
                 'city' => new DropDownResource($this->city),
-                'country' => new DropDownResource($this->country),
+                'nationality' => $this->nationality,
                 'socials'=>[
                     'facebook'=>Social::where('user_id',$this->id)->value('facebook')??"",
                     'twitter'=>Social::where('user_id',$this->id)->value('twitter')??"",

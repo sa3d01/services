@@ -29,7 +29,7 @@ class UserRegisterationRequest extends ApiMasterRequest
             'name' => 'required|string|max:110',
             'phone' => 'required|string|max:90|unique:users',
             'password' => 'required|string|min:6|max:15',
-            'country_id' => 'nullable|numeric|exists:drop_downs,id',
+            'nationality' => 'nullable|string|max:100',
             'city_id' => 'required|numeric|exists:drop_downs,id',
             'location.lat' => 'nullable',
             'location.lng' => 'nullable',

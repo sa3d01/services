@@ -20,9 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique()->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password')->nullable();
+            $table->string('nationality')->nullable();
             $table->foreignId('city_id')->nullable();
             $table->json('location')->nullable();
-            $table->foreignId('country_id')->nullable();
             $table->string('image')->nullable();
             //for provider
             $table->boolean('approved')->nullable()->default(false);

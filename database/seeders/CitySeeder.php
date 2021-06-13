@@ -29,20 +29,5 @@ class CitySeeder extends Seeder
             'name_ar'=>'الدمام',
             'name_en'=>'الدمام',
         ]);
-        DropDown::create([
-            'class'=>'Country',
-            'name_ar'=>'السعودية',
-            'name_en'=>'السعودية',
-        ]);
-        DropDown::create([
-            'class'=>'Country',
-            'name_ar'=>'اليمنية',
-            'name_en'=>'اليمنية',
-        ]);
-        DropDown::create([
-            'class'=>'Country',
-            'name_ar'=>'المصرية',
-            'name_en'=>'المصرية',
-        ]);
     }
 }

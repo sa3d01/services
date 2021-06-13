@@ -77,20 +77,14 @@ Route::group([
                     Route::post('check-promo-code', 'PackageUserController@checkPromoCode');
                     Route::post('/', 'PackageUserController@subscribe');
                 });
-
                 Route::get('product', 'ProductController@products');
                 Route::get('gallery', 'ProductController@galleries');
-
                 Route::post('product', 'ProductController@store');
-
                 Route::post('product/{id}', 'ProductController@updateProduct');
                 Route::delete('product/{id}', 'ProductController@destroyProduct');
                 Route::post('gallery/{id}', 'ProductController@updateGallery');
                 Route::delete('gallery/{id}', 'ProductController@destroyGallery');
             });
         });
-
     });
-
-
 });

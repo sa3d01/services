@@ -34,7 +34,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'city_id',
         'location',
-        'country_id',
+        'nationality',
         'image',
         'email',
         'email_verified_at',
@@ -78,10 +78,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(DropDown::class,'city_id','id');
     }
-    public function country():object
-    {
-        return $this->belongsTo(DropDown::class,'country_id','id');
-    }
+
     public function getTypeString():string
     {
         if ($this['type']=='USER'){
