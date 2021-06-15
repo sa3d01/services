@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Provider;
 
 use App\Http\Controllers\Api\MasterController;
+use App\Http\Requests\Api\Provider\GalleryStoreRequest;
 use App\Http\Requests\Api\Provider\GalleryUpdateRequest;
 use App\Http\Requests\Api\Provider\ProductStoreRequest;
 use App\Http\Requests\Api\Provider\ProductUpdateRequest;
@@ -31,18 +32,21 @@ class ProductController extends MasterController
         $galleries=Gallery::where('user_id',auth('api')->id())->get();
         return $this->sendResponse(GalleryResource::collection($galleries));
     }
-    public function store(ProductStoreRequest $request)
+    public function storeProduct(ProductStoreRequest $request)
     {
         $product = $request->validated();
         $product['user_id'] = auth('api')->id();
-        $product['note'] = $request['product_note'];
         Product::create($product);
-        $gallery = $request->validated();
-        $gallery['user_id'] = auth('api')->id();
-        $gallery['note'] = $request['gallery_note'];
-        Gallery::create($gallery);
         $products=Product::where('user_id',auth('api')->id())->get();
         return $this->sendResponse(ProductResource::collection($products));
+    }
+    public function storeGallery(GalleryStoreRequest $request)
+    {
+        $gallery = $request->validated();
+        $gallery['user_id'] = auth('api')->id();
+        Gallery::create($gallery);
+        $galleries=Gallery::where('user_id',auth('api')->id())->get();
+        return $this->sendResponse(GalleryResource::collection($galleries));
     }
 
     public function updateProduct($id,ProductUpdateRequest $request):object

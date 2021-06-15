@@ -27,9 +27,7 @@ class ProductStoreRequest extends ApiMasterRequest
         return [
             'category_id' => 'required|numeric|exists:categories,id',
             'price' => 'nullable|numeric',
-            'product_note' => 'required|string',
-            'image' => 'nullable|image',
-            'gallery_note' => 'nullable|string',
+            'note' => 'required|string',
         ];
     }
 }
