@@ -116,4 +116,28 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     {
         FileService::upload($image, $this, "avatars", true);
     }
+
+    public function rates():object
+    {
+        return $this->hasMany(Rate::class,'rated_id','id');
+    }
+    public function feedbacks(){
+        $feedbacks=[];
+        foreach ($this->rates as $rate){
+            $arr['rate']=$rate->rate;
+            $arr['feedback']=$rate->feedback;
+            $arr['user']['id']=$rate->user->id;
+            $arr['user']['name']=$rate->user->name;
+            $arr['user']['image']=$rate->user->image;
+            $feedbacks[]=$arr;
+        }
+        return $feedbacks;
+    }
+    public function averageRate()
+    {
+        if ($this->rates()->count('rate') < 1){
+            return 0;
+        }
+        return $this->rates()->sum('rate')/$this->rates()->count('rate');
+    }
 }

@@ -24,29 +24,29 @@ class ProductController extends MasterController
 
     public function products():object
     {
-        $products=Product::where('user_id',auth('api')->id())->get();
-        return $this->sendResponse(ProductResource::collection($products));
+        $products=Product::where('user_id',auth('api')->id())->paginate(10);
+        return ProductResource::collection($products);
     }
     public function galleries():object
     {
-        $galleries=Gallery::where('user_id',auth('api')->id())->get();
-        return $this->sendResponse(GalleryResource::collection($galleries));
+        $galleries=Gallery::where('user_id',auth('api')->id())->paginate(10);
+        return GalleryResource::collection($galleries);
     }
     public function storeProduct(ProductStoreRequest $request)
     {
         $product = $request->validated();
         $product['user_id'] = auth('api')->id();
         Product::create($product);
-        $products=Product::where('user_id',auth('api')->id())->get();
-        return $this->sendResponse(ProductResource::collection($products));
+        $products=Product::where('user_id',auth('api')->id())->paginate(10);
+        return ProductResource::collection($products);
     }
     public function storeGallery(GalleryStoreRequest $request)
     {
         $gallery = $request->validated();
         $gallery['user_id'] = auth('api')->id();
         Gallery::create($gallery);
-        $galleries=Gallery::where('user_id',auth('api')->id())->get();
-        return $this->sendResponse(GalleryResource::collection($galleries));
+        $galleries=Gallery::where('user_id',auth('api')->id())->paginate(10);
+        return GalleryResource::collection($galleries);
     }
 
     public function updateProduct($id,ProductUpdateRequest $request):object
@@ -56,8 +56,8 @@ class ProductController extends MasterController
             return $this->sendError('توجد مشكلة بالبيانات');
         }
         $product->update($request->validated());
-        $products=Product::where('user_id',auth('api')->id())->get();
-        return $this->sendResponse(ProductResource::collection($products));
+        $products=Product::where('user_id',auth('api')->id())->paginate(10);
+        return ProductResource::collection($products);
     }
     public function updateGallery($id,GalleryUpdateRequest $request):object
     {
@@ -66,8 +66,8 @@ class ProductController extends MasterController
             return $this->sendError('توجد مشكلة بالبيانات');
         }
         $gallery->update($request->validated());
-        $galleries=Gallery::where('user_id',auth('api')->id())->get();
-        return $this->sendResponse(GalleryResource::collection($galleries));
+        $galleries=Gallery::where('user_id',auth('api')->id())->paginate(10);
+        return GalleryResource::collection($galleries);
     }
     public function destroyProduct($id):object
     {
@@ -76,8 +76,8 @@ class ProductController extends MasterController
             return $this->sendError('توجد مشكلة بالبيانات');
         }
         $product->delete();
-        $products=Product::where('user_id',auth('api')->id())->get();
-        return $this->sendResponse(ProductResource::collection($products));
+        $products=Product::where('user_id',auth('api')->id())->paginate(10);
+        return ProductResource::collection($products);
     }
     public function destroyGallery($id):object
     {
@@ -86,7 +86,7 @@ class ProductController extends MasterController
             return $this->sendError('توجد مشكلة بالبيانات');
         }
         $gallery->delete();
-        $galleries=Gallery::where('user_id',auth('api')->id())->get();
-        return $this->sendResponse(GalleryResource::collection($galleries));
+        $galleries=Gallery::where('user_id',auth('api')->id())->paginate(10);
+        return GalleryResource::collection($galleries);
     }
 }

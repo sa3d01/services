@@ -54,11 +54,7 @@ class VerifyController extends MasterController
         });
         if ($user['type'] != 'USER') {
             if ($user->approved == 0) {
-                $response = [
-                    'status' => 401,
-                    'message' => 'يرجى انتظار موافقة إدارة التطبيق ..',
-                ];
-                return response()->json($response, 401);
+                return $this->sendError('يرجى انتظار موافقة إدارة التطبيق. ');
             }
             return $this->sendResponse(new ProviderLoginResourse($user));
         } else {

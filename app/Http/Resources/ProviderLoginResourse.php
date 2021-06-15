@@ -29,6 +29,7 @@ class ProviderLoginResourse extends JsonResource
         return [
             "user" => [
                 'id' => (int)$this->id,
+                'rating' => (double)$this->averageRate(),
                 'type' => $this->type,
                 'name' => $this->name,
                 'phone' => $this->phone ?? "",

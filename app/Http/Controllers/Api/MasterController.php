@@ -37,7 +37,7 @@ abstract class MasterController extends Controller
         return response()->json($response, $code);
     }
 
-    function fcmPush($title,$user,$order)
+    function fcmPush($title,$user,$type)
     {
         if (in_array('id',$user->device)){
             $push = new PushNotification('fcm');
@@ -46,9 +46,7 @@ abstract class MasterController extends Controller
                 'data' => [
                     'title' => $title,
                     'body' => $title,
-                    'status' => $order->status,
-                    'type' => 'order',
-//                    'order' => new OrderResourse($order),
+                    'type' => $type,
                 ],
                 'priority' => 'high',
             ];
@@ -57,9 +55,9 @@ abstract class MasterController extends Controller
                 ->send();
         }
     }
-    public function notify_user($user,$title, $order)
+    public function notify($user,$title,$type)
     {
-        $this->fcmPush($title,$user,$order);
+        $this->fcmPush($title,$user,$type);
         $notification['title'] = $title;
         $notification['note'] = $title;
         $notification['receiver_id'] = $user->id;
