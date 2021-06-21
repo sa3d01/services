@@ -1,0 +1,25 @@
+.blue-bg {
+    background-color: #0C2D7E;
+}
+
+.yellow-bg {
+    background-color: #FFB13E;
+}
+
+.yellow,
+.owl-theme .owl-nav [class*=owl-]:hover {
+    color: #FFB13E;
+}
+
+.blue,
+#rated .owl-nav,
+#fields .owl-nav,
+#services .owl-nav,
+#BusinessGallery .owl-nav,
+#providerServices .owl-nav {
+    color: #0C2D7E;
+}
+
+.text-muted {
+    color: #60606080 !important;
+}
