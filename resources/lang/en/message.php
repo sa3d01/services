@@ -15,6 +15,8 @@ return [
 
     'intro_1' => 'These credentials do not match our records.',
     'intro_2' => 'These credentials do not match our records.',
+    'provider_name' => 'مقدم خدمة',
+    'user_name' => 'طالب خدمة',
 
 
 ];

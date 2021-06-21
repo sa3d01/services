@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="provider-editprofile.blade.php">
+                            <a class="nav-link" href="auth/provider-editprofile.blade.php">
                                 <i class="far fa-user"></i> الصفحة الشخصية
                             </a>
                         </li>

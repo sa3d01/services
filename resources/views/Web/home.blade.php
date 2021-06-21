@@ -391,7 +391,7 @@
                     <div class="form-group wow fadeInDown">
                         <textarea class="form-control p-4 br-25" rows="5" placeholder="الرسالة"></textarea>
                     </div>
-                    <a href="user-signupActivation.blade.php" class="btn btn-blue mt-4 w-100 wow fadeInUp">ارسال</a>
+                    <a href="auth/user-signupActivation.blade.php" class="btn btn-blue mt-4 w-100 wow fadeInUp">ارسال</a>
                 </form>
             </div>
         </div>

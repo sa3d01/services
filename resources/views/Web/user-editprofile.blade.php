@@ -122,7 +122,7 @@
                         <div class="mt-5">
                             <p class="my-auto text-center">
                                 هل تريد تغير كلمة المرور ؟
-                                <a href="user-changePass.blade.php" class="yellow w-700">
+                                <a href="auth/user-changePass.blade.php" class="yellow w-700">
                                     اضغط هنا
                                 </a>
                             </p>

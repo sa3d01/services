@@ -2,32 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::namespace('App\Http\Controllers\Web')->group(function() {
-    Route::get('/{locale?}','HomeController@index')->name('index');
     Route::get('change/lang', 'LocalizationController@LangChange')->name('LangChange');
     Route::namespace('Auth')->group(function(){
-        Route::get('/login','LoginController@showLoginForm')->name('login');
-        Route::post('/login','LoginController@login')->name('login.submit');
+//        Route::get('/login','LoginController@showLoginForm')->name('login');
+//        Route::post('/login','LoginController@login')->name('login.submit');
+//
+        Route::get('/user-signup','RegisterController@showUserRegisterForm')->name('user.signup');
+        Route::post('/user-signup','RegisterController@userRegisterSubmit')->name('user.signup.submit');
 
-        Route::get('/user-signup','LoginController@showLoginForm')->name('login');
-        Route::post('/user-signup','LoginController@login')->name('login.submit');
-
-        Route::get('/provider-signup','LoginController@showLoginForm')->name('signup');
-        Route::post('/provider-signup','LoginController@login')->name('login.submit');
-
-        Route::post('/logout','LoginController@logout')->name('logout');
+        Route::get('/provider-signup','RegisterController@showProviderRegisterForm')->name('provider.signup');
+        Route::post('/provider-signup','RegisterController@providerRegisterSubmit')->name('provider.signup.submit');
+//        Route::post('/logout','LoginController@logout')->name('logout');
     });
+    Route::get('/{locale?}','HomeController@index')->name('index');
+
 });
 
 
@@ -47,7 +36,7 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::get('/profile', 'AdminController@profile')->name('profile');
     Route::put('/profile', 'AdminController@updateProfile')->name('profile.update');
     Route::get('/', 'HomeController@index')->name('home');
-    Route::resource('user', 'UserController');
+    Route::resource('user', 'ProviderController');
     Route::post('user/{id}/ban', 'UserController@ban')->name('user.ban');
     Route::post('user/{id}/activate', 'UserController@activate')->name('user.activate');
     Route::post('notification/{id}','NotificationController@sendSingleNotification')->name('notification.send-single-notification');
