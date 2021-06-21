@@ -22,6 +22,7 @@ class SingleProviderResource extends JsonResource
             'phone' => $this->phone ?? "",
             'image' => $this->image,
             'city' => new DropDownResource($this->city),
+            'location' => $this->location ?? "",
             'socials' => [
                 'facebook' => Social::where('user_id', $this->id)->value('facebook') ?? "",
                 'twitter' => Social::where('user_id', $this->id)->value('twitter') ?? "",

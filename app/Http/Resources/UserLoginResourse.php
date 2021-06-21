@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class UserLoginResourse extends JsonResource
 {
@@ -31,6 +32,7 @@ class UserLoginResourse extends JsonResource
                 'type' => $this->type,
                 'name' => $this->name,
                 'phone' => $this->phone ?? "",
+                'location' => $this->location ?? "",
                 'city' => new DropDownResource($this->city),
                 'image' => $this->image,
             ],

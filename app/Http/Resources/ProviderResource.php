@@ -21,6 +21,7 @@ class ProviderResource extends JsonResource
             'name' => $this->name,
             'phone' => $this->phone ?? "",
             'image' => $this->image,
+            'location' => $this->location ?? "",
         ];
     }
 }
