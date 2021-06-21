@@ -87,19 +87,19 @@ Route::group([
                 Route::delete('gallery/{id}', 'ProductController@destroyGallery');
             });
         });
-        //User
-        Route::group([
-            'namespace' => 'User'
-        ], function () {
-            Route::group(['prefix' => 'user'], function () {
-                Route::get('providers', 'ProviderController@providers');
-                Route::get('providers/{id}', 'ProviderController@show');
-                Route::get('providers/{id}/products', 'ProviderController@providerProducts');
-                Route::get('providers/{id}/galleries', 'ProviderController@providerGalleries');
-                Route::get('providers/{id}/feedbacks', 'ProviderController@providerFeedbacks');
+    });
+    //User
+    Route::group([
+        'namespace' => 'User'
+    ], function () {
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('providers', 'ProviderController@providers');
+            Route::get('providers/{id}', 'ProviderController@show');
+            Route::get('providers/{id}/products', 'ProviderController@providerProducts');
+            Route::get('providers/{id}/galleries', 'ProviderController@providerGalleries');
+            Route::get('providers/{id}/feedbacks', 'ProviderController@providerFeedbacks');
 
-                Route::post('rate/{id}', 'ProviderController@rate');
-            });
+            Route::post('rate/{id}', 'ProviderController@rate')->middleware(JwtTokenIsValid::class);
         });
     });
 });

@@ -14,8 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::namespace('App\Http\Controllers\Web')->group(function() {
-    Route::get('/','HomeController@index')->name('index');
+    Route::get('/{locale?}','HomeController@index')->name('index');
+    Route::get('change/lang', 'LocalizationController@LangChange')->name('LangChange');
+    Route::namespace('Auth')->group(function(){
+        Route::get('/login','LoginController@showLoginForm')->name('login');
+        Route::post('/login','LoginController@login')->name('login.submit');
 
+        Route::get('/user-signup','LoginController@showLoginForm')->name('login');
+        Route::post('/user-signup','LoginController@login')->name('login.submit');
+
+        Route::get('/provider-signup','LoginController@showLoginForm')->name('signup');
+        Route::post('/provider-signup','LoginController@login')->name('login.submit');
+
+        Route::post('/logout','LoginController@logout')->name('logout');
+    });
 });
 
 

@@ -38,10 +38,11 @@
                         <img src="{{asset('images/logo.png')}}" class="mx-5 wow zoomIn">
                     </a>
                     <div class="navbar-nav ">
-                        <select class="border-0 ">
-                            <option value="ar">اللغة العربية</option>
-                            <option value="en">English</option>
+                        <select class="border-0 Langchange">
+                            <option value="ar" {{ session()->get('locale') == 'ar' ? 'selected' : '' }}>اللغة العربية</option>
+                            <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
                         </select>
+
                     </div>
                 </div>
             </div>
@@ -49,27 +50,23 @@
 
     </header>
     <!-- content -->
-
     <div class="container py-5">
         <div class="row ltr">
-            <!-- <div class="col-md-6 rtl my-3">
-            </div> -->
             <div class="col-md-9 mx-auto rtl my-auto wow fadeIn py-3">
-                <!-- <h4 class="w-700">موقع في الخدمة</h4> -->
                 <div>
                     <div class="owl-carousel owl-theme text-center" id="indexSlider">
                         <div class="item my-3">
                             <img src="{{asset('images/vec1.png')}}" class="img-fluid  wow zoomIn" alt="">
 
                             <p class="mt-4">
-                                موقع في الخدمة هو منصة إلكترونية خاصة لعرض العديد من الخدمات و الأعمال فسوف تجد كل ما تحتاج له في مكان واحد فنحن في خدمتكم
+                                {{ __('message.intro_1') }}
                             </p>
                         </div>
                         <div class="item my-3">
                             <img src="{{asset('images/vec2.png')}}" class="img-fluid  wow zoomIn" alt="">
 
                             <p class="mt-4">
-                                تستطيع عرض أعمالك و خدماتك و الوصول للعديد من طالبين الخدمات من خلال التطبيق عن طريق الاشتراك معنا بسهولة
+                                {{ __('message.intro_2') }}
                             </p>
                         </div>
                     </div>
@@ -88,6 +85,12 @@
     <script type="text/javascript " src="{{asset('js/wow.min.js')}}"></script>
     <script type="text/javascript " src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script type="text/javascript " src="{{asset('js/scripts.js')}}"></script>
+    <script type="text/javascript">
+        var url = "{{ route('LangChange') }}";
+        $(".Langchange").change(function(){
+            window.location.href = url + "?lang="+ $(this).val();
+        });
+    </script>
 </body>
 
 </html>
