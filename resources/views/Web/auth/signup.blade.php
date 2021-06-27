@@ -5,7 +5,7 @@
         <div class="row ">
             <div class="col-md-10 mx-auto my-3">
                 <h4 class="text-center w-700 mb-5">
-                    {{ __('auth.provider-signup-title') }}
+                    ت
                 </h4>
                 <form action="" class="row">
                     <div class="col-md-6">

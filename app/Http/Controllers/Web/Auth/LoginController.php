@@ -13,15 +13,16 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:user')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
     use AuthenticatesUsers;
 
-    public function showLoginForm()
+    public function showLoginForm($type)
     {
-        return view('Dashboard.auth.login');
+        return view('Web.auth.login',compact('type'));
     }
+
 
 
     public function login(Request $request)

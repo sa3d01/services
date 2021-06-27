@@ -5,15 +5,13 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('App\Http\Controllers\Web')->group(function() {
     Route::get('change/lang', 'LocalizationController@LangChange')->name('LangChange');
     Route::namespace('Auth')->group(function(){
-//        Route::get('/login','LoginController@showLoginForm')->name('login');
-//        Route::post('/login','LoginController@login')->name('login.submit');
-//
-        Route::get('/user-signup','RegisterController@showUserRegisterForm')->name('user.signup');
-        Route::post('/user-signup','RegisterController@userRegisterSubmit')->name('user.signup.submit');
+        Route::get('/login/{type}','LoginController@showLoginForm')->name('login');
+        Route::get('/signup/{type}','RegisterController@showRegisterForm')->name('signup');
 
-        Route::get('/provider-signup','RegisterController@showProviderRegisterForm')->name('provider.signup');
-        Route::post('/provider-signup','RegisterController@providerRegisterSubmit')->name('provider.signup.submit');
-//        Route::post('/logout','LoginController@logout')->name('logout');
+        Route::post('/login','LoginController@login')->name('login.submit');
+        Route::post('/signup','RegisterController@RegisterSubmit')->name('signup.submit');
+
+        Route::post('/logout','LoginController@logout')->name('logout');
     });
     Route::get('/{locale?}','HomeController@index')->name('index');
 

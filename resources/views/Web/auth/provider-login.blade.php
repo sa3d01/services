@@ -75,7 +75,7 @@
                     <div class="mt-5">
                         <p class="my-auto text-center">
                             لا تمتلك حساب ؟
-                            <a href="provider-signup.blade.php" class="yellow w-700">
+                            <a href="signup.blade.php" class="yellow w-700">
                                  سجل الآن
                             </a>
                         </p>

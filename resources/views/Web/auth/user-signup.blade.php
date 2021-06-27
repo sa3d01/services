@@ -85,7 +85,7 @@
                     <div class="mt-5">
                         <p class="my-auto text-center">
                             هل تمتلك حساب ؟
-                            <a href="user-login.blade.php" class="yellow w-700">
+                            <a href="login.blade.php" class="yellow w-700">
                               سجل دخول الآن
                             </a>
                         </p>

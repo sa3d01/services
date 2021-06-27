@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <div class="text-center my-3">
-                    <a href="{{route('user.signup')}}" class="btn btn-blue px-md-5 px-4 my-md-0 my-3">{{ __('message.user_name') }}</a>
-                    <a href="{{route('provider.signup')}}" class="btn btn-yellow px-md-5 px-4 mr-2 my-md-0 my-3">{{ __('message.provider_name') }}</a>
+                    <a href="{{route('login',['type'=>'user'])}}" class="btn btn-blue px-md-5 px-4 my-md-0 my-3">{{ __('message.user_name') }}</a>
+                    <a href="{{route('login',['type'=>'provider'])}}" class="btn btn-yellow px-md-5 px-4 mr-2 my-md-0 my-3">{{ __('message.provider_name') }}</a>
                 </div>
             </div>
         </div>

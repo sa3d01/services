@@ -26,13 +26,13 @@ class PackageUserController extends MasterController
     {
         $package_user=PackageUser::where('user_id',auth('api')->id())->latest()->first();
         if (!$package_user)
-            return $this->sendResponse(['subscribed'=>false],'you are not subscribed yet');
+            return $this->sendResponse(['package_id'=>'','subscribed'=>false],'you are not subscribed yet');
         if ($package_user->status=='rejected'){
-            return $this->sendResponse(['subscribed'=>false],'your last subscribe is rejected');
+            return $this->sendResponse(['package_id'=>'','subscribed'=>false],'your last subscribe is rejected');
         }elseif ($package_user->status=='pending'){
-            return $this->sendResponse(['subscribed'=>false],'your last subscribe is pending');
+            return $this->sendResponse(['package_id'=>$package_user->package_id,'subscribed'=>false],'your last subscribe is pending');
         }else{
-            return $this->sendResponse(['subscribed'=>true]);
+            return $this->sendResponse(['package_id'=>$package_user->package_id,'subscribed'=>true]);
         }
     }
     public function checkPromoCode(CheckPromoCodeRequest $request):object

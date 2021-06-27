@@ -18,15 +18,12 @@ class RegisterController extends Controller
 
     use AuthenticatesUsers;
 
-    public function showUserRegisterForm()
+    public function showRegisterForm($type)
     {
-        return view('Web.auth.user-signup');
+        return view('Web.auth.signup',compact('type'));
     }
 
-    public function showProviderRegisterForm()
-    {
-        return view('Web.auth.provider-signup');
-    }
+
 
 
 
