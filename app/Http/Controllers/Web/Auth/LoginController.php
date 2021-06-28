@@ -28,32 +28,29 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validator($request);
-        if(Auth::guard('admin')->attempt($request->only('email','password'),$request->filled('remember'))){
+        if(Auth::guard($request['type'])->attempt($request->only('phone','password'),$request->filled('remember'))){
             return redirect()
-                ->intended(route('admin.home'))
-                ->with('status','You are Logged in as Admin!');
+                ->intended(route('home'))
+                ->with('status','You are Logged in!');
         }
         return $this->loginFailed();
     }
 
     public function logout()
     {
-        Auth::guard('admin')->logout();
+        Auth::guard('web')->logout();
         return redirect()
-            ->route('admin.login')
-            ->with('status','Admin has been logged out!');
+            ->route('index')
+            ->with('status','has been logged out!');
     }
 
     private function validator(Request $request)
     {
         $rules = [
-            'email'    => 'required|email|exists:users|min:5|max:191',
-            'password' => 'required|string|min:4|max:255',
+            'phone'    => 'required|exists:users|min:5|max:191',
+            'password' => 'required|string|min:6|max:255',
         ];
-        $messages = [
-            'email.exists' => 'هذا البريد غير مسجل!',
-        ];
-        $request->validate($rules,$messages);
+        $request->validate($rules);
     }
 
     /**

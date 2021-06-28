@@ -11,11 +11,16 @@ Route::namespace('App\Http\Controllers\Web')->group(function() {
         Route::post('/login','LoginController@login')->name('login.submit');
         Route::post('/signup','RegisterController@RegisterSubmit')->name('signup.submit');
 
+        Route::get('/activate','RegisterController@showActivationPage')->name('activate');
+        Route::post('/activate','RegisterController@ActivationSubmit')->name('activate.submit');
+
         Route::post('/logout','LoginController@logout')->name('logout');
     });
-    Route::get('/{locale?}','HomeController@index')->name('index');
+    Route::get('/','HomeController@index')->name('index');
+    Route::get('/home', 'HomeController@home')->name('home');
 
 });
+
 
 
 

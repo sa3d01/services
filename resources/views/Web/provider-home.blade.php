@@ -80,11 +80,11 @@
             </div>
         </nav>
     </header>
-    <!--  -->
+    <!-- relative -->
     <div class="container p-relative">
         <div class="row ltr">
             <div class="col-md-6 rtl my-3 p-md-5">
-                <img src="../../../../public/images/header.png" class="img-fluid p-md-5 p-4 wow zoomIn" alt="">
+                <img src="{{asset('images/header.png')}}" class="img-fluid p-md-5 p-4 wow zoomIn" alt="">
             </div>
             <div class="col-md-6 rtl my-auto wow fadeIn py-3 ">
                 <h4 class="w-700">
@@ -93,17 +93,16 @@
                 <p>
                     هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق
                 </p>
-
                 <div class="w-75 mt-5">
                     <div class="owl-carousel owl-theme " id="headerSlider">
                         <div class="item my-3">
-                            <img src="../../../../public/images/headerSlide.png" class="img-fluid br-25" alt="">
+                            <img src="{{asset('images/headerSlide.png')}}" class="img-fluid br-25" alt="">
                         </div>
                         <div class="item my-3">
-                            <img src="../../../../public/images/headerSlide.png" class="img-fluid br-25" alt="">
+                            <img src="{{asset('images/headerSlide.png')}}" class="img-fluid br-25" alt="">
                         </div>
                         <div class="item my-3">
-                            <img src="../../../../public/images/headerSlide.png" class="img-fluid br-25" alt="">
+                            <img src="{{'images/headerSlide.png'}}" class="img-fluid br-25" alt="">
                         </div>
                     </div>
                 </div>
@@ -114,22 +113,22 @@
             <ul class="p-0 m-0 social mt-4">
                 <li class="my-2">
                     <a href=" " class="text-white">
-                        <img src="../../../../public/images/icons/fb.png" class="img-fluid" alt="">
+                        <img src="{{asset('images/icons/fb.png')}}" class="img-fluid" alt="">
                     </a>
                 </li>
                 <li class="my-2">
                     <a href=" " class="text-white">
-                        <img src="../../../../public/images/icons/tw.png" class="img-fluid" alt="">
+                        <img src="{{asset('images/icons/tw.png')}}" class="img-fluid" alt="">
                     </a>
                 </li>
                 <li class="my-2">
                     <a href=" " class="text-white">
-                        <img src="../../../../public/images/icons/snap.png" class="img-fluid" alt="">
+                        <img src="{{asset('images/icons/snap.png')}}" class="img-fluid" alt="">
                     </a>
                 </li>
                 <li class="my-2">
                     <a href=" " class="text-white">
-                        <img src="../../../../public/images/icons/insta.png" class="img-fluid" alt="">
+                        <img src="{{asset('images/icons/insta.png')}}" class="img-fluid" alt="">
                     </a>
                 </li>
             </ul>

@@ -20,36 +20,10 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     @yield('styles')
 </head>
-
 <body>
 <!-- header -->
-<header>
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light nav-slider pt-5">
-        <div class="container">
-            <a class="navbar-brand d-block d-lg-none sm-logo" href="home.blade.php">
-                <img src="{{asset('images/logo.png')}}">
-            </a>
-            <button class="navbar-toggler collapsed blue-bg text-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars default-color "></i>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="navbar-brand d-none d-lg-block mx-5 lg-logo mx-auto" href="home.blade.php">
-                    <img src="{{asset('images/logo.png')}}" class="mx-5 wow zoomIn">
-                </a>
-                <div class="navbar-nav ">
-                    <select class="border-0 Langchange">
-                        <option value="ar" {{ session()->get('locale') == 'ar' ? 'selected' : '' }}>اللغة العربية</option>
-                        <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
-                    </select>
-
-                </div>
-            </div>
-        </div>
-    </nav>
-
-</header><!-- content -->
+@include('Web.layouts.partials.header')
+<!-- content -->
 @yield('content')
 <!--scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
@@ -66,5 +40,4 @@
 </script>
 @yield('script')
 </body>
-
 </html>
