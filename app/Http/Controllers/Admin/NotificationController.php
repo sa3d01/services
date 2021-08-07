@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
-use App\Models\Contact;
 use App\Models\Notification;
 use App\Models\User;
 use Edujugon\PushNotification\PushNotification;
@@ -14,6 +13,7 @@ class NotificationController extends MasterController
     public function __construct(Notification $model)
     {
         $this->model = $model;
+//        $this->middleware('permission:notifications');
         parent::__construct();
     }
 
@@ -43,63 +43,39 @@ class NotificationController extends MasterController
 
     public function store(Request $request)
     {
-        $data['title']='admin message';
+        $data['title']='رسالة إدارية';
         $data['note']=$request['note'];
-        $users=User::where('type','USER')->get();
-        $usersTokens=[];
-        $usersIds=[];
-        foreach ($users as $user){
-            if ($user->device['id'] !='null'){
-                $usersTokens[]=$user->device['id'];
-                $usersIds[]=$user->id;
+        foreach ($request['types'] as $type){
+            $users=User::where('type',$type)->get();
+            $usersTokens=[];
+            $usersIds=[];
+            foreach ($users as $user){
+                if ($user->device['id'] !='null'){
+                    $usersTokens[]=$user->device['id'];
+                    $usersIds[]=$user->id;
+                }
             }
+            $push = new PushNotification('fcm');
+            $feed=$push->setMessage([
+                'notification' => array('title'=>$data['note'], 'sound' => 'default'),
+                'data' => [
+                    'title' => $data['note'],
+                    'body' => $data['note'],
+                    'status' => 'admin',
+                    'type'=>'admin',
+                ],
+                'priority' => 'high',
+            ])
+                ->setDevicesToken($usersTokens)
+                ->send()
+                ->getFeedback();
+            $this->model->create([
+                'receivers'=>$usersIds,
+                'admin_notify_type'=>$type,
+                'title'=>$data['title'],
+                'note'=>$data['note'],
+            ]);
         }
-        $push = new PushNotification('fcm');
-        $push->setMessage([
-            'notification' => array('title'=>$data['note'], 'sound' => 'default'),
-            'data' => [
-                'title' => $data['note'],
-                'body' => $data['note'],
-                'status' => 'admin',
-                'type'=>'admin',
-            ],
-            'priority' => 'high',
-        ])
-            ->setDevicesToken($usersTokens)
-            ->send();
-        $this->model->create([
-            'receivers'=>$usersIds,
-            'admin_notify_type'=>'all',
-            'title'=>$data['note'],
-            'note'=>$data['note'],
-        ]);
-        return redirect()->back()->with('success','تم الارسال بنجاح');
-    }
-
-    public function sendSingleNotification($id,Request $request)
-    {
-        $contact=Contact::find($id);
-        $data['title']='admin message';
-        $data['note']=$request['note'];
-        $push = new PushNotification('fcm');
-        $push->setMessage([
-            'notification' => array('title'=>$data['note'], 'sound' => 'default'),
-            'data' => [
-                'title' => $data['note'],
-                'body' => $data['note'],
-                'status' => 'admin',
-                'type'=>'admin',
-            ],
-            'priority' => 'high',
-        ])
-            ->setDevicesToken($contact->user->device['id'])
-            ->send();
-        $this->model->create([
-            'receiver_id'=>$contact->user_id,
-            'admin_notify_type'=>'single',
-            'title'=>$data['note'],
-            'note'=>$data['note'],
-        ]);
         return redirect()->back()->with('success','تم الارسال بنجاح');
     }
 

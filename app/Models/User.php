@@ -121,6 +121,14 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     {
         return $this->hasMany(Rate::class,'rated_id','id');
     }
+    public function products():object
+    {
+        return $this->hasMany(Product::class,'user_id','id');
+    }
+    public function galleries():object
+    {
+        return $this->hasMany(Gallery::class,'user_id','id');
+    }
     public function feedbacks(){
         $feedbacks=[];
         foreach ($this->rates as $rate){

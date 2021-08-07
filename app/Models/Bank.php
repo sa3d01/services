@@ -19,7 +19,7 @@ class Bank extends Model implements HasMedia
             ->height(232)
             ->sharpen(10);
     }
-    protected $fillable = ['logo', 'name', 'account_number', 'banned'];
+    protected $fillable = ['logo', 'name_ar','name_en', 'account_number', 'banned'];
 
 
     protected function getLogoAttribute()

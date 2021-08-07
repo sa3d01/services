@@ -1,5 +1,5 @@
 @extends('Dashboard.layouts.master')
-@section('title', 'تعديل مدينة')
+@section('title', 'تعديل حساب بنكى')
 @section('styles')
     <link href="{{asset('assets/libs/dropify/dist/css/dropify.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
@@ -17,12 +17,26 @@
                         </div>
                     @endif
                     <div class="card-box">
-                        <form method="POST" action="{{route('admin.contact_type.update',$row->id)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
+                        <form method="POST" action="{{route('admin.bank.update',$bank->id)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label for="name">الإسم*</label>
-                                <input value="{{$row->name}}" type="text" name="name" required class="form-control" id="name">
+                                <label for="name_ar">اسم البنك باللغة العربية*</label>
+                                <input value="{{$bank->name_ar}}" type="text" name="name_ar" required class="form-control" id="name_ar">
+                            </div>
+                            <div class="form-group">
+                                <label for="name_en">اسم البنك باللغة الانجليزية*</label>
+                                <input value="{{$bank->name_en}}" type="text" name="name_en" required class="form-control" id="name_en">
+                            </div>
+                            <div class="form-group">
+                                <label for="account_number">رقم الحساب*</label>
+                                <input value="{{$bank->account_number}}" type="text" name="account_number" required class="form-control" id="account_number">
+                            </div>
+                            <div class="form-group">
+                                <label for="image">الشعار</label>
+                                <div class="card-box">
+                                    <input name="logo" id="input-file-now-custom-1 image" type="file" class="dropify"  data-default-file="{{$bank->logo}}" />
+                                </div>
                             </div>
                             <div class="form-group text-right mb-0">
                                 <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">

@@ -20,6 +20,14 @@
                                 <label for="note">نص الإشعار*</label>
                                 <textarea id="note" required class="form-control" name="note"></textarea>
                             </div>
+                            <div class="form-group">
+                                <label for="type">نوع مستقبلي الإشعار</label>
+                                <select name="types[]" id="type" class="form-control select2 select2-multiple" multiple data-placeholder="نوع مستقبلي الإشعار ...">
+                                    <option selected value="user">المستخدمين</option>
+                                    <option selected value="provider">مزودى الخدمات</option>
+                                    <option selected value="delivery">المندوبيين</option>
+                                </select>
+                            </div>
                             <div class="form-group text-right mb-0">
                                 <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
                                     إرسال
@@ -32,6 +40,7 @@
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                             <thead>
                             <tr>
+                                <th>نوع مستقبلي الرسالة</th>
                                 <th>نص الرسالة</th>
                                 <th>عدد مستقبلي الاشعار</th>
                                 <th>تاريخ الرسالة</th>
@@ -40,6 +49,7 @@
                             <tbody>
                             @foreach(\App\Models\Notification::where('receivers','!=',null)->latest()->get() as $row)
                                 <tr>
+                                    <td>{{$row->admin_notify_type}}</td>
                                     <td>{{$row->note}}</td>
                                     <td>{{count((array)$row->receivers)}}</td>
                                     <td>{{\Carbon\Carbon::parse($row->created_at)->format('Y-M-d')}}</td>

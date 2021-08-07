@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\DropDown;
+use App\Models\CancelOrder;
+use App\Models\Category;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
@@ -29,6 +30,13 @@ abstract class MasterController extends Controller
         $this->middleware('auth:admin');
         $new_users_count=User::where('type','USER')->where('created_at','>',Carbon::now()->subDays(7))->count();
         $all_users_count=User::where('type','USER')->count();
+
+        $new_providers_count=User::where('type','PROVIDER')->where('created_at','>',Carbon::now()->subDays(7))->count();
+        $all_providers_count=User::where('type','PROVIDER')->count();
+
+        $new_products_count=Product::where('created_at','>',Carbon::now()->subDays(7))->count();
+        $all_products_count=Product::count();
+
         $unread_notifications_count=Notification::where(['type'=>'admin','read'=>'false'])->count();
         $notifications=Notification::where(['type'=>'admin','read'=>'false'])->latest()->get();
         view()->share(array(
@@ -42,6 +50,12 @@ abstract class MasterController extends Controller
             'json_fields' => $this->json_fields,
             'new_users_count'=>$new_users_count,
             'all_users_count'=>$all_users_count>0?$all_users_count:1,
+            'new_providers_count'=>$new_providers_count,
+            'all_providers_count'=>$all_providers_count>0?$all_providers_count:1,
+            'new_products_count'=>$new_products_count,
+            'all_products_count'=>$all_products_count>0?$all_products_count:1,
+            'categories'=>Category::where('parent_id',null)->get(),
+
             'notifications'=>$notifications,
             'unread_notifications_count'=>$unread_notifications_count,
            ));
@@ -58,12 +72,6 @@ abstract class MasterController extends Controller
         return view('Dashboard.' . $this->route . '.create');
     }
 
-//    public function store(Request $request)
-//    {
-//        $this->validate($request, $this->validation_func(1), $this->validation_msg());
-//        $this->model->create($request->all());
-//        return redirect('admin/' . $this->route . '')->with('created', 'تمت الاضافة بنجاح');
-//    }
 
     public function edit($id)
     {

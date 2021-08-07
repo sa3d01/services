@@ -9,6 +9,7 @@ class UserController extends MasterController
     public function __construct(User $model)
     {
         $this->model = $model;
+//        $this->middleware('permission:users');
         parent::__construct();
     }
 
@@ -31,6 +32,7 @@ class UserController extends MasterController
             ]
         );
         $user->refresh();
+        $user->refresh();
         return redirect()->back()->with('updated');
     }
     public function activate($id):object
@@ -41,6 +43,7 @@ class UserController extends MasterController
                 'banned'=>0,
             ]
         );
+        $user->refresh();
         $user->refresh();
         return redirect()->back()->with('updated');
     }
