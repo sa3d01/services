@@ -15,6 +15,9 @@ class CreateTransfersTable extends Migration
     {
         Schema::create('transfers', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->enum('status',['pending','rejected','accepted'])->default('pending');
             $table->timestamps();
         });
     }
