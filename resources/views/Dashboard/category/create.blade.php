@@ -21,22 +21,18 @@
                             @csrf
                             @method('POST')
                             <div class="form-group">
-                                <label for="name">الإسم*</label>
-                                <input type="text" name="name" required class="form-control" id="name">
+                                <label for="name_ar">الإسم باللغة العربية*</label>
+                                <input type="text" name="name_ar" required class="form-control" id="name_ar">
+                            </div>
+                            <div class="form-group">
+                                <label for="name_en">الإسم باللغة الانجليزية*</label>
+                                <input type="text" name="name_en" required class="form-control" id="name_en">
                             </div>
                             <div class="form-group">
                                 <label for="image">الصورة</label>
                                 <div class="card-box">
-                                    <input name="image" id="input-file-now-custom-1 image" type="file" class="dropify" data-default-file="{{asset('media/images/logo.jpeg') }}"  />
+                                    <input name="image" id="input-file-now-custom-1 image" type="file" class="dropify" data-default-file="{{asset('images/logo.png') }}"  />
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">عدد المنتجات المجانية*</label>
-                                <input type="number" name="free_products" required class="form-control" id="free_products">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">سعر إضافة المنتج*</label>
-                                <input type="number" name="product_price" required class="form-control" id="product_price">
                             </div>
                             <div class="form-group text-right mb-0">
                                 <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">

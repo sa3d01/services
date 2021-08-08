@@ -1,5 +1,5 @@
 @extends('Dashboard.layouts.master')
-@section('title', 'تعديل حي')
+@section('title', ' إضافة تصنيف فرعي')
 @section('styles')
     <link href="{{asset('assets/libs/dropify/dist/css/dropify.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
@@ -17,27 +17,28 @@
                         </div>
                     @endif
                     <div class="card-box">
-                        <form method="POST" action="{{route('admin.district.update',$district->id)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
+                        <form method="POST" action="{{route('admin.sub_category.store')}}" enctype="multipart/form-data" data-parsley-validate novalidate>
                             @csrf
-                            @method('PUT')
+                            @method('POST')
                             <div class="form-group">
-                                <label for="name">الإسم*</label>
-                                <input value="{{$district->name}}" type="text" name="name" required class="form-control" id="name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="parent_id">المدينة*</label>
+                                <label for="parent_id">التصنيف الرئيسي*</label>
                                 <select name="parent_id" required class="form-control" id="parent_id">
-                                    <option value="{{$district->parent_id}}">{{$district->parent->name}}</option>
-                                @foreach(\App\Models\DropDown::whereClass('City')->get() as $city)
-                                        <option value="{{$city->id}}">{{$city->name}}</option>
+                                    @foreach($parents as $cat)
+                                        <option value="{{$cat->id}}">{{$cat->name_ar}}</option>
                                     @endforeach
                                 </select>
                             </div>
-
+                            <div class="form-group">
+                                <label for="name_ar">الإسم باللغة العربية*</label>
+                                <input type="text" name="name_ar" required class="form-control" id="name_ar">
+                            </div>
+                            <div class="form-group">
+                                <label for="name_en">الإسم باللغة الانجليزية*</label>
+                                <input type="text" name="name_en" required class="form-control" id="name_en">
+                            </div>
                             <div class="form-group text-right mb-0">
                                 <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
-                                    تعديل
+                                    تأكيد
                                 </button>
                             </div>
                         </form>

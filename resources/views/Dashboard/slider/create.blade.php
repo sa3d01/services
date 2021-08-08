@@ -24,12 +24,20 @@
                             @csrf
                             @method('POST')
                             <div class="form-group">
-                                <label for="title">العنوان*</label>
-                                <input type="text" name="title" required class="form-control" id="title">
+                                <label for="title_ar">العنوان باللغة العربية*</label>
+                                <input type="text" name="title_ar" required class="form-control" id="title_ar" >
                             </div>
                             <div class="form-group">
-                                <label for="note">الوصف النصى*</label>
-                                <textarea id="note" required class="form-control" name="note"></textarea>
+                                <label for="title_en">العنوان باللغة الانجليزية*</label>
+                                <input type="text" name="title_en" required class="form-control" id="title_en">
+                            </div>
+                            <div class="form-group">
+                                <label for="note_ar">الوصف باللغة العربية*</label>
+                                <textarea cols="5" rows="12" name="note_ar" required class="form-control" id="note_ar"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="note_en">الوصف باللغة الانجليزية*</label>
+                                <textarea cols="5" rows="12" name="note_en" required class="form-control" id="note_en"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>موعد بداية العرض</label>

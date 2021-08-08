@@ -26,7 +26,7 @@
                             <tbody>
                             @foreach($rows as $row)
                                 <tr>
-                                    <td>{{$row->name}}</td>
+                                    <td>{{$row->name_ar}}</td>
                                     <td>
                                         <span class="badge @if($row->status==1) badge-success @else badge-danger @endif">
                                             {{$row->status==1?'مفعل':'غير مفعل'}}

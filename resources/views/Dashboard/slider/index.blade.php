@@ -31,8 +31,8 @@
                                 <tr>
                                     <td>{{\Carbon\Carbon::createFromTimestamp($row->start_date)->format('Y-M-d')}}</td>
                                     <td>{{\Carbon\Carbon::createFromTimestamp($row->end_date)->format('Y-M-d')}}</td>
-                                    <td>{{$row->title}}</td>
-                                    <td>{{$row->note}}</td>
+                                    <td>{{$row->title_ar}}</td>
+                                    <td>{{$row->note_ar}}</td>
                                     <td data-toggle="modal" data-target="#imgModal{{$row->id}}">
                                         <img width="50px" height="50px" class="img_preview" src="{{ $row->image}}">
                                     </td>
@@ -50,6 +50,10 @@
                                     </div>
                                     <td>
                                         <div class="button-list">
+                                            <a href="{{route('admin.slider.edit',$row->id)}}">
+                                                <button class="btn btn-warning waves-effect waves-light"> <i class="fa fa-map-pin mr-1"></i> <span>تعديل</span> </button>
+                                            </a>
+                                            <br>
                                             <form class="delete" data-id="{{$row->id}}" method="POST" action="{{ route('admin.slider.destroy',[$row->id]) }}">
                                                 @csrf
                                                 {{ method_field('DELETE') }}

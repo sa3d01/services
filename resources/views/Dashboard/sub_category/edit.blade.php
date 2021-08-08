@@ -17,9 +17,18 @@
                         </div>
                     @endif
                     <div class="card-box">
-                        <form method="POST" action="{{route('admin.category.update',$category->id)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
+                        <form method="POST" action="{{route('admin.sub_category.update',$category->id)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
                             @csrf
                             @method('PUT')
+                            <div class="form-group">
+                                <label for="parent_id">التصنيف الرئيسي*</label>
+                                <select name="parent_id" required class="form-control" id="parent_id">
+                                    <option value="{{$category->parent_id}}">{{$category->parent->name_ar}}</option>
+                                    @foreach($parents as $cat)
+                                        <option value="{{$cat->id}}">{{$cat->name_ar}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="name_ar">الإسم باللغة العربية*</label>
                                 <input type="text" name="name_ar" required class="form-control" id="name_ar" value="{{$category->name_ar}}">
@@ -27,12 +36,6 @@
                             <div class="form-group">
                                 <label for="name_en">الإسم باللغة الانجليزية*</label>
                                 <input type="text" name="name_en" required class="form-control" id="name_en" value="{{$category->name_en}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="image">الصورة</label>
-                                <div class="card-box">
-                                    <input name="image" id="input-file-now-custom-1 image" type="file" class="dropify" data-default-file="{{$category->image}}"  />
-                                </div>
                             </div>
                             <div class="form-group text-right mb-0">
                                 <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">

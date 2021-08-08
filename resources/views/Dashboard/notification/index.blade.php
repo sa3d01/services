@@ -25,7 +25,6 @@
                                 <select name="types[]" id="type" class="form-control select2 select2-multiple" multiple data-placeholder="نوع مستقبلي الإشعار ...">
                                     <option selected value="user">المستخدمين</option>
                                     <option selected value="provider">مزودى الخدمات</option>
-                                    <option selected value="delivery">المندوبيين</option>
                                 </select>
                             </div>
                             <div class="form-group text-right mb-0">

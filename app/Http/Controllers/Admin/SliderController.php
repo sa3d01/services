@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Dashboard\SliderStoreRequest;
 use App\Models\Slider;
+use Illuminate\Http\Request;
 
 class SliderController extends MasterController
 {
@@ -27,10 +28,26 @@ class SliderController extends MasterController
 
     public function store(SliderStoreRequest $request)
     {
-        $data = $request->all();
+        $data = $request->except('image');
         $data['user_id'] = auth()->id();
-        $this->model->create($data);
+        $slider=$this->model->create($data);
+        $slider->update([
+           'image'=>$request['image']
+        ]);
         return redirect()->route('admin.slider.index')->with('created');
+    }
+
+    public function edit($id):object
+    {
+        $row=$this->model->find($id);
+        return view('Dashboard.slider.edit', compact('row'));
+    }
+    public function update($id,Request $request)
+    {
+        $row=$this->model->find($id);
+        $row->update($request->all());
+        return redirect()->back()->with('updated');
+
     }
 
     public function ban($id): object

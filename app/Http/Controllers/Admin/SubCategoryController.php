@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class CategoryController extends MasterController
+class SubCategoryController extends MasterController
 {
     public function __construct(Category $model)
     {
@@ -17,30 +17,29 @@ class CategoryController extends MasterController
 
     public function index()
     {
-        $rows = $this->model->where('parent_id',null)->latest()->get();
-        return view('Dashboard.category.index', compact('rows'));
+        $rows = $this->model->where('parent_id','!=',null)->latest()->get();
+        return view('Dashboard.sub_category.index', compact('rows'));
     }
     public function create()
     {
-        return view('Dashboard.category.create');
+        $parents=Category::where('parent_id',null)->get();
+        return view('Dashboard.sub_category.create',compact('parents'));
     }
     public function store(Request $request)
     {
         $category=$this->model->create($request->except('image'));
-        $category->update([
-            'image'=>$request['image']
-        ]);
-        return redirect()->route('admin.category.index')->with('created');
+        return redirect()->route('admin.sub_category.index')->with('created');
     }
     public function show($id):object
     {
         $category=$this->model->find($id);
-        return view('Dashboard.category.show', compact('category'));
+        return view('Dashboard.sub_category.show', compact('category'));
     }
     public function edit($id):object
     {
         $category=$this->model->find($id);
-        return view('Dashboard.category.edit', compact('category'));
+        $parents=Category::where('parent_id',null)->get();
+        return view('Dashboard.sub_category.edit', compact('category','parents'));
     }
     public function update($id,Request $request)
     {

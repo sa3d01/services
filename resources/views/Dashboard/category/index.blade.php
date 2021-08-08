@@ -19,10 +19,6 @@
                             <thead>
                             <tr>
                                 <th>الإسم</th>
-                                <th>الصورة</th>
-                                <th>عدد الخدمات المجانية</th>
-                                <th>سعر إضافة خدمة</th>
-                                <th>عدد الخدمات المضافة</th>
                                 <th>الحالة</th>
                                 <th>العمليات المتاحة</th>
                             </tr>
@@ -30,7 +26,7 @@
                             <tbody>
                             @foreach($rows as $row)
                                 <tr>
-                                    <td>{{$row->name}}</td>
+                                    <td>{{$row->name_ar}}</td>
                                     <td data-toggle="modal" data-target="#imgModal{{$row->id}}">
                                         <img width="50px" height="50px" class="img_preview" src="{{ $row->image}}">
                                     </td>
@@ -46,25 +42,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <td>{{$row->free_products}}</td>
-                                    <td>{{$row->product_price}}</td>
-                                    <td>{{$row->products->count()}}</td>
                                     <td>
-                                        <span class="badge @if($row->status==1) badge-success @else badge-danger @endif">
-                                            {{$row->status==1?'مفعل':'غير مفعل'}}
+                                        <span class="badge @if($row->banned==0) badge-success @else badge-danger @endif">
+                                            {{$row->banned==0?'مفعل':'غير مفعل'}}
                                         </span>
                                     </td>
                                     <td>
                                         <div class="button-list">
-                                            <a href="{{route('admin.category.show',$row->id)}}">
-                                                <button class="btn btn-info waves-effect waves-light"> <i class="fa fa-eye mr-1"></i> <span>عرض</span> </button>
-                                            </a>
+{{--                                            <a href="{{route('admin.category.show',$row->id)}}">--}}
+{{--                                                <button class="btn btn-info waves-effect waves-light"> <i class="fa fa-eye mr-1"></i> <span>عرض</span> </button>--}}
+{{--                                            </a>--}}
                                             <br>
                                             <a href="{{route('admin.category.edit',$row->id)}}">
                                                 <button class="btn btn-warning waves-effect waves-light"> <i class="fa fa-map-pin mr-1"></i> <span>تعديل</span> </button>
                                             </a>
                                             <br>
-                                            @if($row->status==1)
+                                            @if($row->banned==0)
                                                 <form class="ban" data-id="{{$row->id}}" method="POST" action="{{ route('admin.category.ban',[$row->id]) }}">
                                                     @csrf
                                                     {{ method_field('POST') }}

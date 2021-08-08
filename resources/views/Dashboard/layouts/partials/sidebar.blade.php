@@ -54,25 +54,16 @@
         <li>
             <a href="{{route('admin.category.index')}}">
                 <i class="mdi mdi-box-shadow"></i>
-                <span> إدارة التصنيفات </span>
+                <span> إدارة التصنيفات الرئيسية </span>
+            </a>
+        </li>
+        <li>
+            <a href="{{route('admin.sub_category.index')}}">
+                <i class="mdi mdi-box-shadow"></i>
+                <span> إدارة التصنيفات الفرعية </span>
             </a>
         </li>
 
-{{--        <li>--}}
-{{--            <a href="javascript: void(0);">--}}
-{{--                <i class="mdi mdi-cart-plus"></i>--}}
-{{--                <span> إدارة الطلبات </span>--}}
-{{--                <span class="menu-arrow"></span>--}}
-{{--            </a>--}}
-{{--            <ul class="nav-second-level" aria-expanded="false">--}}
-{{--                <li><a href="{{route('admin.orders.list','new')}}">طلبات جديدة</a></li>--}}
-{{--                <li><a href="{{route('admin.orders.list','pre_paid')}}">طلبات بانتظار الدفع</a></li>--}}
-{{--                <li><a href="{{route('admin.orders.list','in_progress')}}">طلبات جارية</a></li>--}}
-{{--                <li><a href="{{route('admin.orders.list','completed')}}">طلبات مكتملة</a></li>--}}
-{{--                <li><a href="{{route('admin.orders.list','rejected')}}">طلبات مرفوضة</a></li>--}}
-{{--                <li><a href="{{route('admin.rate.index')}}">تقييمات العملاء</a></li>--}}
-{{--            </ul>--}}
-{{--        </li>--}}
 
         <li>
             <a href="{{route('admin.notification.index')}}">
@@ -123,31 +114,22 @@
                             <a href="{{route('admin.page.edit',['type'=>'terms','for'=>'provider'])}}">الشروط والأحكام لمقدم الخدمة</a>
                         </li>
                         <li>
-                            <a href="{{route('admin.page.edit',['type'=>'terms','for'=>'delivery'])}}">الشروط والأحكام للمندوب</a>
+                            <a href="{{route('admin.page.edit',['type'=>'licence','for'=>'user'])}}">سياسة الخصوصية للمستخدم</a>
                         </li>
+                        <li>
+                            <a href="{{route('admin.page.edit',['type'=>'licence','for'=>'provider'])}}">سياسة الخصوصية لمقدم الخدمة</a>
+                        </li>
+
                     </ul>
                 </li>
                 <li>
                     <a href="{{route('admin.contact_type.index')}}">أنواع التواصل</a>
                 </li>
                 <li>
-                    <a href="javascript: void(0);" aria-expanded="false">المدن والأحياء
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="nav-third-level nav" aria-expanded="false">
-                        <li>
-                            <a href="{{route('admin.city.index')}}">المدن</a>
-                        </li>
-                        <li>
-                            <a href="{{route('admin.district.index')}}">الأحياء</a>
-                        </li>
-                    </ul>
+                    <a href="{{route('admin.city.index')}}">المدن</a>
                 </li>
                 <li>
                     <a href="{{route('admin.bank.index')}}">الحسابات البنكية</a>
-                </li>
-                <li>
-                    <a href="{{route('admin.story_period.index')}}">أسعار إضافة حالات</a>
                 </li>
                 <li>
                     <a href="{{route('admin.slider.index')}}">الإعلانات</a>

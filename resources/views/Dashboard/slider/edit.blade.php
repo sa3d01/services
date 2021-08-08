@@ -1,5 +1,5 @@
 @extends('Dashboard.layouts.master')
-@section('title', 'إضافة حي')
+@section('title', 'تعديل ')
 @section('styles')
     <link href="{{asset('assets/libs/dropify/dist/css/dropify.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
@@ -17,26 +17,52 @@
                         </div>
                     @endif
                     <div class="card-box">
-                        <form method="POST" action="{{route('admin.district.store')}}" enctype="multipart/form-data" data-parsley-validate novalidate>
+                        <form method="POST" action="{{route('admin.slider.update',$row->id)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
                             @csrf
-                            @method('POST')
+                            @method('PUT')
                             <div class="form-group">
-                                <label for="name">الإسم*</label>
-                                <input type="text" name="name" required class="form-control" id="name">
+                                <label for="title_ar">العنوان باللغة العربية*</label>
+                                <input type="text" name="title_ar" required class="form-control" id="title_ar" value="{{$row->title_ar}}">
                             </div>
-
                             <div class="form-group">
-                                <label for="parent_id">المدينة*</label>
-                                <select name="parent_id" required class="form-control" id="parent_id">
-                                    @foreach(\App\Models\DropDown::whereClass('City')->get() as $city)
-                                        <option value="{{$city->id}}">{{$city->name}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="title_en">العنوان باللغة الانجليزية*</label>
+                                <input type="text" name="title_en" required class="form-control" id="title_en" value="{{$row->title_en}}">
                             </div>
-
+                            <div class="form-group">
+                                <label for="note_ar">الوصف باللغة العربية*</label>
+                                <textarea cols="5" rows="12" name="note_ar" required class="form-control" id="note_ar">{{$row->note_ar}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="note_en">الوصف باللغة الانجليزية*</label>
+                                <textarea cols="5" rows="12" name="note_en" required class="form-control" id="note_en">{{$row->note_en}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>موعد بداية العرض</label>
+                                <div class="input-group">
+                                    <input value="{{$row->start_date}}" type="text" name="start_date" class="form-control" placeholder="mm/dd/yyyy" id="datepicker">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="ti-calendar"></i></span>
+                                    </div>
+                                </div><!-- input-group -->
+                            </div>
+                            <div class="form-group">
+                                <label>موعد نهاية العرض</label>
+                                <div class="input-group">
+                                    <input value="{{$row->end_date}}" type="text" name="end_date" class="form-control" placeholder="mm/dd/yyyy" id="datepicker">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="ti-calendar"></i></span>
+                                    </div>
+                                </div><!-- input-group -->
+                            </div>
+                            <div class="form-group">
+                                <label for="image">الصورة</label>
+                                <div class="card-box">
+                                    <input name="image" id="input-file-now-custom-1 image" type="file" class="dropify" data-default-file="{{$row->image}}"  />
+                                </div>
+                            </div>
                             <div class="form-group text-right mb-0">
                                 <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
-                                    تأكيد
+                                    تعديل
                                 </button>
                             </div>
                         </form>

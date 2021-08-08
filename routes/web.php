@@ -67,6 +67,7 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::get('delivery/{id}/accept', 'DeliveryController@accept')->name('delivery.accept');
 
     Route::resource('category', 'CategoryController');
+    Route::resource('sub_category', 'SubCategoryController');
     Route::post('category/{id}/ban', 'CategoryController@ban')->name('category.ban');
     Route::post('category/{id}/activate', 'CategoryController@activate')->name('category.activate');
 

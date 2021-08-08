@@ -25,7 +25,7 @@
                             <tbody>
                             @foreach($rows as $row)
                                 <tr>
-                                    <td>{{$row->name}}</td>
+                                    <td>{{$row->name_ar}}</td>
                                     <td>
                                         <div class="button-list">
                                             <a href="{{route('admin.city.edit',$row->id)}}">
