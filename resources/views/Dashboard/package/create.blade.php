@@ -1,7 +1,10 @@
 @extends('Dashboard.layouts.master')
-@section('title', 'تعديل بيانات حالة')
+@section('title', 'إضافة باقة')
 @section('styles')
     <link href="{{asset('assets/libs/dropify/dist/css/dropify.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/libs/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/libs/bootstrap-datepicker/bootstrap-datepicker.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/libs/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
 @endsection
 @section('content')
     <div class="content">
@@ -17,20 +20,29 @@
                         </div>
                     @endif
                     <div class="card-box">
-                        <form method="POST" action="{{route('admin.story_period.update',$story_period->id)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
+                        <form method="POST" action="{{route('admin.package.store')}}" enctype="multipart/form-data" data-parsley-validate novalidate>
                             @csrf
-                            @method('PUT')
+                            @method('POST')
                             <div class="form-group">
-                                <label for="story_period">عدد الأيام*</label>
-                                <input value="{{$story_period->story_period}}" min="1" type="number" name="story_period" required class="form-control" id="story_period">
+                                <label for="name_ar">الاسم باللغة العربية*</label>
+                                <input type="text" name="name_ar" required class="form-control" id="name_ar" >
                             </div>
                             <div class="form-group">
-                                <label for="story_perice">السعر*</label>
-                                <input value="{{$story_period->story_price}}" min="1" type="number" name="story_price" required class="form-control" id="story_price">
+                                <label for="name_en">الاسم باللغة الانجليزية*</label>
+                                <input type="text" name="name_en" required class="form-control" id="name_en">
                             </div>
+                            <div class="form-group">
+                                <label for="price">السعر*</label>
+                                <input type="number" min="0" name="price" required class="form-control" id="price">
+                            </div>
+                            <div class="form-group">
+                                <label for="period">الفترة بالشهور*</label>
+                                <input type="number" min="1" name="period" required class="form-control" id="period">
+                            </div>
+
                             <div class="form-group text-right mb-0">
                                 <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
-                                    تعديل
+                                    تأكيد
                                 </button>
                             </div>
                         </form>
@@ -83,4 +95,8 @@
     <script src="{{asset('assets/libs/parsleyjs/parsley.min.js')}}"></script>
     <!-- validation init -->
     <script src="{{asset('assets/js/pages/form-validation.init.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+
 @endsection

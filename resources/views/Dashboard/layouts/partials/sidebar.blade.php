@@ -6,29 +6,29 @@
                 <span> الرئيسية </span>
             </a>
         </li>
-        <li class="menu-title">الصلاحيات</li>
-        <li>
-            <a href="javascript: void(0);">
-                <i class="mdi mdi-controller-classic"></i>
-                <span> إدارة الصلاحيات </span>
-                <span class="menu-arrow"></span>
-            </a>
-            <ul class="nav-second-level" aria-expanded="false">
-                <li><a href="{{route('admin.roles.create')}}">إضافة صلاحية جديدة</a></li>
-                <li><a href="{{route('admin.roles.index')}}">عرض الكل</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="javascript: void(0);">
-                <i class="mdi mdi-office-building"></i>
-                <span> الإدارة </span>
-                <span class="menu-arrow"></span>
-            </a>
-            <ul class="nav-second-level" aria-expanded="false">
-                <li><a href="{{route('admin.admins.create')}}">إضافة مدير جديدة</a></li>
-                <li><a href="{{route('admin.admins.index')}}">عرض الكل</a></li>
-            </ul>
-        </li>
+{{--        <li class="menu-title">الصلاحيات</li>--}}
+{{--        <li>--}}
+{{--            <a href="javascript: void(0);">--}}
+{{--                <i class="mdi mdi-controller-classic"></i>--}}
+{{--                <span> إدارة الصلاحيات </span>--}}
+{{--                <span class="menu-arrow"></span>--}}
+{{--            </a>--}}
+{{--            <ul class="nav-second-level" aria-expanded="false">--}}
+{{--                <li><a href="{{route('admin.roles.create')}}">إضافة صلاحية جديدة</a></li>--}}
+{{--                <li><a href="{{route('admin.roles.index')}}">عرض الكل</a></li>--}}
+{{--            </ul>--}}
+{{--        </li>--}}
+{{--        <li>--}}
+{{--            <a href="javascript: void(0);">--}}
+{{--                <i class="mdi mdi-office-building"></i>--}}
+{{--                <span> الإدارة </span>--}}
+{{--                <span class="menu-arrow"></span>--}}
+{{--            </a>--}}
+{{--            <ul class="nav-second-level" aria-expanded="false">--}}
+{{--                <li><a href="{{route('admin.admins.create')}}">إضافة مدير جديدة</a></li>--}}
+{{--                <li><a href="{{route('admin.admins.index')}}">عرض الكل</a></li>--}}
+{{--            </ul>--}}
+{{--        </li>--}}
         <li class="menu-title">أعضاء النظام</li>
         <li>
             <a href="{{route('admin.user.index')}}">
@@ -49,7 +49,6 @@
             </ul>
         </li>
 
-
         <li class="menu-title">محتويات النظام</li>
         <li>
             <a href="{{route('admin.category.index')}}">
@@ -57,13 +56,13 @@
                 <span> إدارة التصنيفات الرئيسية </span>
             </a>
         </li>
+
         <li>
             <a href="{{route('admin.sub_category.index')}}">
                 <i class="mdi mdi-box-shadow"></i>
                 <span> إدارة التصنيفات الفرعية </span>
             </a>
         </li>
-
 
         <li>
             <a href="{{route('admin.notification.index')}}">
@@ -73,10 +72,29 @@
         </li>
 
         <li>
-            <a href="{{route('admin.wallet-pay.index')}}">
-                <i class="mdi mdi-cached"></i>
-                <span> إدارة الحوالات البنكية </span>
+            <a href="{{route('admin.package.index')}}">
+                <i class="mdi mdi-apps-box"></i>
+                <span> الباقات </span>
             </a>
+        </li>
+
+        <li>
+            <a href="{{route('admin.promo_code.index')}}">
+                <i class="mdi mdi-qrcode"></i>
+                <span> إدارة أكواد الخصم </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="javascript: void(0);">
+                <i class="mdi mdi-home-currency-usd"></i>
+                <span> إدارة الحوالات البنكية </span>
+                <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level" aria-expanded="false">
+                <li><a href="{{route('admin.package_user.index')}}">اشتراكات مقدمي الخدمات</a></li>
+                <li><a href="{{route('admin.transfer.index')}}">نسبة التطبيق للمستخدمين</a></li>
+            </ul>
         </li>
 
         <li>
@@ -95,6 +113,9 @@
             <ul class="nav-second-level nav" aria-expanded="false">
                 <li>
                     <a href="{{route('admin.settings.edit')}}">الإعدادات العامة</a>
+                </li>
+                <li>
+                    <a href="{{route('admin.socials.index')}}">روابط التواصل الاجتماعي</a>
                 </li>
                 <li>
                     <a href="javascript: void(0);" aria-expanded="false">الصفحات
@@ -119,7 +140,6 @@
                         <li>
                             <a href="{{route('admin.page.edit',['type'=>'licence','for'=>'provider'])}}">سياسة الخصوصية لمقدم الخدمة</a>
                         </li>
-
                     </ul>
                 </li>
                 <li>

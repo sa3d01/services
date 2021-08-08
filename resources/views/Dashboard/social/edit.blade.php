@@ -1,5 +1,5 @@
 @extends('Dashboard.layouts.master')
-@section('title', 'إضافة ')
+@section('title', ' تعديل رابط '.$name)
 @section('styles')
     <link href="{{asset('assets/libs/dropify/dist/css/dropify.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
@@ -17,20 +17,16 @@
                         </div>
                     @endif
                     <div class="card-box">
-                        <form method="POST" action="{{route('admin.story_period.store')}}" enctype="multipart/form-data" data-parsley-validate novalidate>
+                        <form method="POST" action="{{route('admin.socials.update_link',$name)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
                             @csrf
-                            @method('POST')
+                            @method('PUT')
                             <div class="form-group">
-                                <label for="story_period">عدد الأيام*</label>
-                                <input min="1" type="number" name="story_period" required class="form-control" id="story_period">
-                            </div>
-                            <div class="form-group">
-                                <label for="story_perice">السعر*</label>
-                                <input min="1" type="number" name="story_price" required class="form-control" id="story_price">
+                                <label for="link">الرابط*</label>
+                                <input type="url" name="link" required class="form-control" id="link" value="{{$row->$name}}">
                             </div>
                             <div class="form-group text-right mb-0">
                                 <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
-                                    تأكيد
+                                    تعديل
                                 </button>
                             </div>
                         </form>

@@ -1,5 +1,5 @@
 @extends('Dashboard.layouts.master')
-@section('title', 'حالات الإستوري المعلقة')
+@section('title', 'تحويلات نسبة التطبيق من المستخدمين')
 @section('styles')
     <link href="{{asset('assets/libs/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/libs/datatables/responsive.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
@@ -15,10 +15,8 @@
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                             <thead>
                             <tr>
-                                <th>صاحب الحالة</th>
-                                <th>مدة العرض الطلوبة</th>
-                                <th>سعر الإضافة</th>
-                                <th>تاريخ الطلب</th>
+                                <th>المستخدم</th>
+                                <th>صورة الحوالة</th>
                                 <th>الحالة</th>
                                 <th>العمليات المتاحة</th>
                             </tr>
@@ -26,18 +24,19 @@
                             <tbody>
                             @foreach($rows as $row)
                                 <tr>
-                                    <td><a href="{{route('admin.provider.show',$row->user_id)}}">{{$row->user->name}}</a></td>
-                                    <td>{{$row->storyPeriod->story_period}} أيام </td>
-                                    <td>{{$row->storyPeriod->story_price}} ريال </td>
-                                    <td>{{$row->created_at}}</td>
+                                    <td>
+                                        <a href="{{route('admin.user.show',$row->user_id)}}">
+                                            {{$row->user->name}}
+                                        </a>
+                                    </td>
                                     <td data-toggle="modal" data-target="#imgModal{{$row->id}}">
-                                        <img width="50px" height="50px" class="img_preview" src="{{ $row->media}}">
+                                        <img width="50px" height="50px" class="img_preview" src="{{ $row->image}}">
                                     </td>
                                     <div id="imgModal{{$row->id}}" class="modal fade" role="img">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                    <img data-toggle="modal" data-target="#imgModal{{$row->id}}" class="img-preview" src="{{ $row->media}}" style="max-height: 500px">
+                                                    <img data-toggle="modal" data-target="#imgModal{{$row->id}}" class="img-preview" src="{{ $row->image}}" style="max-height: 500px">
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
@@ -46,14 +45,30 @@
                                         </div>
                                     </div>
                                     <td>
+                                        <span class="badge @if($row->status=='pending') badge-warning @elseif($row->status=='accepted') badge-success @else badge-danger @endif">
+                                            @if($row->status=='pending') معلق @elseif($row->status=='accepted') تم التأكيد @else مرفوض @endif
+                                        </span>
+                                    </td>
+                                    <td>
                                         <div class="button-list">
-                                           <a class="reject" href="" data-href="{{ route('admin.story.reject',[$row->id]) }}" data-id="{{$row->id}}">
-                                                <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-archive mr-1"></i> <span>رفض</span> </button>
-                                           </a>
-                                            <form method="POST" class="accept" data-id="{{$row->id}}" action="{{ route('admin.story.accept',[$row->id]) }}">
-                                                @csrf
-                                                <button class="btn btn-success waves-effect waves-light"> <i class="fa fa-user-clock mr-1"></i> <span>قبول</span> </button>
-                                            </form>
+                                            @if($row->status=='pending')
+                                                <form class="reject" data-id="reject-{{$row->id}}" method="POST" action="{{ route('admin.transfer.reject',[$row->id]) }}">
+                                                    @csrf
+                                                    {{ method_field('POST') }}
+                                                    <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-archive mr-1"></i> <span>رفض</span> </button>
+                                                </form>
+                                                <form class="accept" data-id="accept-{{$row->id}}" method="POST" action="{{ route('admin.transfer.accept',[$row->id]) }}">
+                                                    @csrf
+                                                    {{ method_field('POST') }}
+                                                    <button class="btn btn-success waves-effect waves-light"> <i class="fa fa-user-clock mr-1"></i> <span>تأكيد</span> </button>
+                                                </form>
+                                            @else
+                                                <form class="delete" data-id="{{$row->id}}" method="POST" action="{{ route('admin.package_user.destroy',[$row->id]) }}">
+                                                    @csrf
+                                                    {{ method_field('DELETE') }}
+                                                    <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-tractor mr-1"></i> <span>حذف</span> </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -88,41 +103,36 @@
     <script>
         $(document).on('click', '.reject', function (e) {
             e.preventDefault();
+            var id = $(this).data('id');
             Swal.fire({
-                title: 'من فضلك اذكر سبب الرفض',
-                input: 'text',
+                title: "تأكيد عملية الرفض ؟",
+                type: "warning",
                 showCancelButton: true,
-                confirmButtonText: 'رفض',
-                cancelButtonText: 'الغاء',
-                showLoaderOnConfirm: true,
-                preConfirm: (reject_reason) => {
-                    $.ajax({
-                        url: $(this).data('href'),
-                        sync:true,
-                        type:'GET',
-                        data: {reject_reason},
-                        success: function(){
-                            location.reload(true);
-                        }
-                    })
+                confirmButtonClass: 'btn-danger',
+                confirmButtonText: 'نعم !',
+                cancelButtonText: 'ﻻ , الغى العملية!',
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                preConfirm: () => {
+                    $("form[data-id='" + id + "']").submit();
                 },
                 allowOutsideClick: () => !Swal.isLoading()
             })
         });
         $(document).on('click', '.accept', function (e) {
             e.preventDefault();
+            var id = $(this).data('id');
             Swal.fire({
-                title: "هل انت متأكد من القبول ؟",
-                text: "تأكد من اجابتك قبل التأكيد!",
+                title: "تأكيد عملية القبول ؟",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonClass: 'btn-info',
-                confirmButtonText: 'نعم , قم بالقبول!',
-                cancelButtonText: 'ﻻ , الغى عملية القبول!',
+                confirmButtonClass: 'btn-danger',
+                confirmButtonText: 'نعم !',
+                cancelButtonText: 'ﻻ , الغى العملية!',
                 closeOnConfirm: false,
                 closeOnCancel: false,
                 preConfirm: () => {
-                    $(this).submit();
+                    $("form[data-id='" + id + "']").submit();
                 },
                 allowOutsideClick: () => !Swal.isLoading()
             })

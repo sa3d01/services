@@ -33,7 +33,7 @@
                         </p>
                     </a>
                 @else
-                    <a href="{{route('admin.wallet-pay.index')}}" class="dropdown-item notify-item @if($notification->read=='true') active @endif">
+                    <a href="{{route('admin.package-user.index')}}" class="dropdown-item notify-item @if($notification->read=='true') active @endif">
                         <div class="notify-icon bg-primary">
                             <i class="mdi mdi-bank-transfer"></i>
                         </div>

@@ -38,12 +38,14 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::resource('roles', 'RoleController');
     Route::resource('admins', 'AdminsController');
 
-
     Route::get('clear-all-notifications', 'NotificationController@clearAdminNotifications')->name('clear-all-notifications');
     Route::get('read-notification/{id}', 'NotificationController@readNotification')->name('read-notification');
     Route::get('settings', 'SettingController@showConfig')->name('settings.edit');
     Route::put('settings', 'SettingController@updateConfing')->name('settings.update');
 
+    Route::get('socials/{name}', 'SocialController@editLink')->name('socials.edit_link');
+    Route::put('socials/{name}/update_link', 'SocialController@updateLink')->name('socials.update_link');
+    Route::resource('socials', 'SocialController');
 
     Route::get('/profile', 'AdminController@profile')->name('profile');
     Route::put('/profile', 'AdminController@updateProfile')->name('profile.update');
@@ -53,18 +55,11 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::post('user/{id}/ban', 'UserController@ban')->name('user.ban');
     Route::post('user/{id}/activate', 'UserController@activate')->name('user.activate');
 
-
     Route::get('provider/binned', 'ProviderController@binned')->name('provider.binned');
     Route::get('provider/rejected', 'ProviderController@rejected')->name('provider.rejected');
     Route::resource('provider', 'ProviderController');
     Route::get('provider/{id}/reject', 'ProviderController@reject')->name('provider.reject');
     Route::get('provider/{id}/accept', 'ProviderController@accept')->name('provider.accept');
-
-
-    Route::get('delivery/binned', 'DeliveryController@binned')->name('delivery.binned');
-    Route::resource('delivery', 'DeliveryController');
-    Route::get('delivery/{id}/reject', 'DeliveryController@reject')->name('delivery.reject');
-    Route::get('delivery/{id}/accept', 'DeliveryController@accept')->name('delivery.accept');
 
     Route::resource('category', 'CategoryController');
     Route::resource('sub_category', 'SubCategoryController');
@@ -74,15 +69,6 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::resource('product', 'ProductController');
     Route::post('product/{id}/ban', 'ProductController@ban')->name('product.ban');
     Route::post('product/{id}/activate', 'ProductController@activate')->name('product.activate');
-
-
-    Route::get('story/binned', 'StoryController@binned')->name('story.binned');
-    Route::get('story/{id}/reject', 'StoryController@reject')->name('story.reject');
-    Route::post('story/{id}/accept', 'StoryController@accept')->name('story.accept');
-
-    Route::get('orders/{status}', 'OrderController@list')->name('orders.list');
-    Route::resource('order', 'OrderController');
-    Route::resource('rate', 'RateController');
 
     Route::resource('notification', 'NotificationController');
     Route::post('reply-contact/{id}', 'ContactController@replyContact')->name('contact.reply');
@@ -100,21 +86,24 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::post('city/{id}/ban', 'CityController@ban')->name('city.ban');
     Route::post('city/{id}/activate', 'CityController@activate')->name('city.activate');
 
-    Route::resource('district', 'DistrictController');
-    Route::post('district/{id}/ban', 'DistrictController@ban')->name('district.ban');
-    Route::post('district/{id}/activate', 'DistrictController@activate')->name('district.activate');
-
     Route::resource('slider', 'SliderController');
     Route::post('slider/{id}/ban', 'SliderController@ban')->name('slider.ban');
     Route::post('slider/{id}/activate', 'SliderController@activate')->name('slider.activate');
 
-    Route::resource('story_period', 'StoryPeriodController');
-
-    Route::resource('wallet-pay', 'WalletPayController');
-    Route::post('wallet-pay/{id}/reject', 'WalletPayController@reject')->name('wallet-pay.reject');
-    Route::post('wallet-pay/{id}/accept', 'WalletPayController@accept')->name('wallet-pay.accept');
+    Route::resource('package', 'PackageController');
+    Route::post('package/{id}/ban', 'PackageController@ban')->name('package.ban');
+    Route::post('package/{id}/activate', 'PackageController@activate')->name('package.activate');
 
     Route::get('page/{type}/{for}', 'PageController@page')->name('page.edit');
     Route::put('page/{id}', 'PageController@update')->name('page.update');
 
+    Route::resource('promo_code', 'PromoCodeController');
+
+    Route::resource('package_user', 'PackageUserController');
+    Route::post('package-user/{id}/reject', 'PackageUserController@reject')->name('package-user.reject');
+    Route::post('package-user/{id}/accept', 'PackageUserController@accept')->name('package-user.accept');
+
+    Route::resource('transfer', 'TransferController');
+    Route::post('transfer/{id}/reject', 'TransferController@reject')->name('transfer.reject');
+    Route::post('transfer/{id}/accept', 'TransferController@accept')->name('transfer.accept');
 });

@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'approved_at' => Carbon::now(),
             'remember_token' => Str::random(10),
         ]);
-        $user->assignRole(UserRole::of(UserRole::ROLE_SUPER_ADMIN));
-        $user->assignRole(UserRole::of(UserRole::ROLE_ADMIN));
+//        $user->assignRole(UserRole::of(UserRole::ROLE_SUPER_ADMIN));
+//        $user->assignRole(UserRole::of(UserRole::ROLE_ADMIN));
     }
 }

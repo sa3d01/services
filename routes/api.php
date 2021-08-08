@@ -100,6 +100,7 @@ Route::group([
             Route::get('providers/{id}/feedbacks', 'ProviderController@providerFeedbacks');
 
             Route::post('rate/{id}', 'ProviderController@rate')->middleware(JwtTokenIsValid::class);
+            Route::post('transfer', 'TransferController@store')->middleware(JwtTokenIsValid::class);
         });
     });
 });

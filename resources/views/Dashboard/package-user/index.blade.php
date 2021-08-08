@@ -1,5 +1,5 @@
 @extends('Dashboard.layouts.master')
-@section('title', 'الحوالات البنكية')
+@section('title', 'اشتراكات مقدمي الخدمات')
 @section('styles')
     <link href="{{asset('assets/libs/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/libs/datatables/responsive.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
@@ -15,9 +15,10 @@
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                             <thead>
                             <tr>
-                                <th>المستخدم</th>
-                                <th>البنك</th>
+                                <th>مقدم الخدمة</th>
+                                <th>الباقة</th>
                                 <th>المبلغ</th>
+                                <th>قيمة الخصم</th>
                                 <th>صورة الحوالة</th>
                                 <th>الحالة</th>
                                 <th>العمليات المتاحة</th>
@@ -27,12 +28,13 @@
                             @foreach($rows as $row)
                                 <tr>
                                     <td>
-                                        <a href="{{route('admin.user.show',$row->user_id)}}">
+                                        <a href="{{route('admin.provider.show',$row->user_id)}}">
                                             {{$row->user->name}}
                                         </a>
                                     </td>
-                                    <td>{{$row->bank->name}}</td>
+                                    <td>{{$row->package->name_ar}}</td>
                                     <td>{{$row->amount}}</td>
+                                    <td>{{$row->discount}}</td>
                                     <td data-toggle="modal" data-target="#imgModal{{$row->id}}">
                                         <img width="50px" height="50px" class="img_preview" src="{{ $row->image}}">
                                     </td>
@@ -56,18 +58,18 @@
                                     <td>
                                         <div class="button-list">
                                             @if($row->status=='pending')
-                                                <form class="reject" data-id="reject-{{$row->id}}" method="POST" action="{{ route('admin.wallet-pay.reject',[$row->id]) }}">
+                                                <form class="reject" data-id="reject-{{$row->id}}" method="POST" action="{{ route('admin.package-user.reject',[$row->id]) }}">
                                                     @csrf
                                                     {{ method_field('POST') }}
                                                     <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-archive mr-1"></i> <span>رفض</span> </button>
                                                 </form>
-                                                <form class="accept" data-id="accept-{{$row->id}}" method="POST" action="{{ route('admin.wallet-pay.accept',[$row->id]) }}">
+                                                <form class="accept" data-id="accept-{{$row->id}}" method="POST" action="{{ route('admin.package-user.accept',[$row->id]) }}">
                                                     @csrf
                                                     {{ method_field('POST') }}
                                                     <button class="btn btn-success waves-effect waves-light"> <i class="fa fa-user-clock mr-1"></i> <span>تأكيد</span> </button>
                                                 </form>
                                             @else
-                                                <form class="delete" data-id="{{$row->id}}" method="POST" action="{{ route('admin.wallet-pay.destroy',[$row->id]) }}">
+                                                <form class="delete" data-id="{{$row->id}}" method="POST" action="{{ route('admin.package_user.destroy',[$row->id]) }}">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-tractor mr-1"></i> <span>حذف</span> </button>

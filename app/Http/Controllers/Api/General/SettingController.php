@@ -22,6 +22,7 @@ class SettingController extends MasterController
         $data['mobile'] = $setting->mobile;
         $data['email'] = $setting->email;
         $data['socials'] = $setting->socials;
+        $data['app_ratio'] =(int) $setting->app_ratio;
         return $this->sendResponse($data);
     }
 }

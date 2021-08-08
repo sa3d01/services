@@ -1,5 +1,5 @@
 @extends('Dashboard.layouts.master')
-@section('title', 'أسعار الحالات')
+@section('title', 'الباقات')
 @section('styles')
     <link href="{{asset('assets/libs/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/libs/datatables/responsive.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
@@ -12,28 +12,48 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box">
-{{--                        <a href="{{route('admin.story_period.create')}}">--}}
-{{--                            <button type="button" class="btn btn-block btn-sm btn-success waves-effect waves-light">إضافة </button>--}}
-{{--                        </a>--}}
+                        <a href="{{route('admin.package.create')}}">
+                            <button type="button" class="btn btn-block btn-sm btn-success waves-effect waves-light">إضافة</button>
+                        </a>
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                             <thead>
                             <tr>
-                                <th>عدد الأيام</th>
+                                <th>الاسم</th>
                                 <th>السعر</th>
+                                <th>المدة بالشهور</th>
                                 <th>العمليات المتاحة</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($rows as $row)
                                 <tr>
-                                    <td>{{$row->story_period}}</td>
-                                    <td>{{$row->story_price}} ريال </td>
+                                    <td>{{$row->name_ar}}</td>
+                                    <td>{{$row->price}}</td>
+                                    <td>{{$row->period}}</td>
+                                    <td>
+                                        <span class="badge @if($row->banned==0) badge-success @else badge-danger @endif">
+                                            {{$row->banned==0?'مفعل':'غير مفعل'}}
+                                        </span>
+                                    </td>
                                     <td>
                                         <div class="button-list">
-                                            <a href="{{route('admin.story_period.edit',$row->id)}}">
+                                            <a href="{{route('admin.package.edit',$row->id)}}">
                                                 <button class="btn btn-warning waves-effect waves-light"> <i class="fa fa-map-pin mr-1"></i> <span>تعديل</span> </button>
                                             </a>
                                         </div>
+                                        @if($row->banned==0)
+                                            <form class="ban" data-id="{{$row->id}}" method="POST" action="{{ route('admin.package.ban',[$row->id]) }}">
+                                                @csrf
+                                                {{ method_field('POST') }}
+                                                <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-archive mr-1"></i> <span>حظر</span> </button>
+                                            </form>
+                                        @else
+                                            <form class="activate" data-id="{{$row->id}}" method="POST" action="{{ route('admin.package.activate',[$row->id]) }}">
+                                                @csrf
+                                                {{ method_field('POST') }}
+                                                <button class="btn btn-success waves-effect waves-light"> <i class="fa fa-user-clock mr-1"></i> <span>تفعيل</span> </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -63,4 +83,25 @@
     <!-- third party js ends -->
     <!-- Datatables init -->
     <script src="{{asset('assets/js/pages/datatables.init.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+        $(document).on('click', '.delete', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            Swal.fire({
+                title: "تأكيد عملية الحذف ؟",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: 'btn-danger',
+                confirmButtonText: 'نعم !',
+                cancelButtonText: 'ﻻ , الغى العملية!',
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                preConfirm: () => {
+                    $("form[data-id='" + id + "']").submit();
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            })
+        });
+    </script>
 @endsection
