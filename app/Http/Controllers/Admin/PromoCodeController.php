@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Dashboard\PromoCodeRequest;
 use App\Models\PromoCode;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class PromoCodeController extends MasterController
         return view('Dashboard.promo_code.create');
     }
 
-    public function store(Request $request)
+    public function store(PromoCodeRequest $request)
     {
         $data = $request->all();
         $this->model->create($data);
@@ -38,7 +39,7 @@ class PromoCodeController extends MasterController
         return view('Dashboard.promo_code.edit', compact('promo_code'));
     }
 
-    public function update($id, Request $request)
+    public function update($id, PromoCodeRequest $request)
     {
         $row = $this->model->find($id);
         $row->update($request->all());

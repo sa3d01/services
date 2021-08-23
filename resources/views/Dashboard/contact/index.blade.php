@@ -40,7 +40,7 @@
                                             </a>
                                         @endif
                                     </td>
-                                    <td>{{$row->contactType->name}}</td>
+                                    <td>{{$row->contactType->name_ar}}</td>
                                     <td data-toggle="modal" data-target="#msgModal{{$row->id}}">
                                         {{\Illuminate\Support\Str::limit($row->message,50)}}
                                     </td>

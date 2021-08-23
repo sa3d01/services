@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class AdminsController extends MasterController
@@ -35,11 +37,15 @@ class AdminsController extends MasterController
             'password' => 'required',
             'role' => 'required'
         ]);
-        $input = $request->all();
+        $input = $request->except('image');
         $input['type']='ADMIN';
         $user = User::create($input);
+        $user->update([
+           'image'=>$request['image']
+        ]);
         $role=Role::findById($request['role']);
         $user->syncRoles($role);
+        $user->givePermissionTo($role->permissions->pluck('name'));
         return redirect()->route('admin.admins.index')
             ->with('success','Admin created successfully');
     }
@@ -71,6 +77,9 @@ class AdminsController extends MasterController
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $role=Role::findById($request['role']);
         $user->syncRoles($role);
+//        dd($role->permissions->pluck('name'));
+//        return ;
+        $user->syncPermissions($role->permissions->pluck('name'));
         return redirect()->route('admin.admins.index')
             ->with('success','User updated successfully');
     }

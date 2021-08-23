@@ -31,10 +31,11 @@ class BankController extends MasterController
         $data=$request->except('logo');
         $data['user_id']=auth()->id();
         $bank=$this->model->create($data);
-        $bank->update([
-            'logo'=>$request['logo']
-        ]);
-//        FileService::upload($request['logo'], $bank, "logos", false);
+        if ($request->hasFile('logo')){
+            $bank->update([
+                'logo'=>$request['logo']
+            ]);
+        }
         return redirect()->route('admin.bank.index')->with('created');
     }
     public function edit($id):object

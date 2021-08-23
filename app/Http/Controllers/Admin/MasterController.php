@@ -79,13 +79,13 @@ abstract class MasterController extends Controller
         return View('Dashboard.' . $this->route . '.edit', compact('row'));
     }
 
-    public function update($id, Request $request)
-    {
-        $this->validate($request, $this->validation_func(2, $id), $this->validation_msg());
-        $obj = $this->model->find($id);
-        $obj->update($request->all());
-        return redirect()->back()->with('updated', 'تم التعديل بنجاح');
-    }
+//    public function update($id, Request $request)
+//    {
+//        $this->validate($request, $this->validation_func(2, $id), $this->validation_msg());
+//        $obj = $this->model->find($id);
+//        $obj->update($request->all());
+//        return redirect()->back()->with('updated', 'تم التعديل بنجاح');
+//    }
 
     public function destroy($id)
     {

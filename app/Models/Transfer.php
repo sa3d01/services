@@ -23,7 +23,7 @@ class Transfer extends Model implements HasMedia
 
     protected $fillable = [
         'user_id',
-        'amount',
+//        'amount',
         'image',
         'status',
     ];

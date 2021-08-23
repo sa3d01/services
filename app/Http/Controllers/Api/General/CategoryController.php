@@ -20,11 +20,11 @@ class CategoryController extends MasterController
 
     public function index()
     {
-        return $this->sendResponse(CategoryResource::collection(($this->model->where('parent_id',null)->get())));
+        return $this->sendResponse(CategoryResource::collection(($this->model->where('parent_id',null)->whereBanned(0)->get())));
     }
     public function subCategory($id)
     {
-        return $this->sendResponse(CategoryResource::collection(($this->model->where('parent_id',$id)->get())));
+        return $this->sendResponse(CategoryResource::collection(($this->model->where('parent_id',$id)->whereBanned(0)->get())));
     }
 
 }

@@ -22,9 +22,9 @@ class LoginController extends MasterController
         if (!$user) {
             return $this->sendError('هذا الحساب غير موجود.');
         }
-//        if ($request['type']=='PROVIDER' && $user->approved != 1){
-//            return $this->sendError('هذا الحساب غير مفعل من قبل الإدارة.');
-//        }
+        if ($request['type']=='PROVIDER' && $user->approved != 1){
+            return $this->sendError('هذا الحساب غير مفعل من قبل الإدارة.');
+        }
         if (!$user->phone_verified_at) {
             return $this->sendError('هذا الحساب غير مفعل.',['phone_verified'=>false]);
         }

@@ -50,7 +50,7 @@ class NotificationController extends MasterController
             $usersTokens=[];
             $usersIds=[];
             foreach ($users as $user){
-                if ($user->device['id'] !='null'){
+                if ($user->device!=null && $user->device['id'] !='null'){
                     $usersTokens[]=$user->device['id'];
                     $usersIds[]=$user->id;
                 }

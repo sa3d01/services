@@ -10,16 +10,16 @@
                 <form>
                     <div class="row px-3">
                         <div class="form-group wow fadeInUp col-3 px-1">
-                            <input type="text" class="form-control text-align-last-center text-center">
+                            <input id="i4" type="number" class="i form-control text-align-last-center text-center">
                         </div>
                         <div class="form-group wow fadeInUp col-3 px-1">
-                            <input type="text" class="form-control text-align-last-center text-center">
+                            <input id="i3" type="number" class="i form-control text-align-last-center text-center">
                         </div>
                         <div class="form-group wow fadeInUp col-3 px-1">
-                            <input type="text" class="form-control text-align-last-center text-center">
+                            <input id="i2" type="number" class="i form-control text-align-last-center text-center">
                         </div>
                         <div class="form-group wow fadeInUp col-3 px-1">
-                            <input type="text" class="form-control text-align-last-center text-center">
+                            <input id="i1" type="number" class="i form-control text-align-last-center text-center">
                         </div>
                     </div>
 
@@ -58,4 +58,42 @@
             })
         </script>
     @endif
+
+    <script>
+        var digitsPerBox = 1;
+        /// EACH INPUT
+        $(".i").on("input",function(e) {
+            if (e.target.value.length === digitsPerBox) {
+                var t = $( e.target );
+                if (t.attr("id") === "i4") {
+                    /// SUBMIT HERE
+                    var txt = $("#i1").val() + "" + $("#i2").val() + "" + $("#i3").val() + "" + $("#i4").val();
+                    alert(txt);
+                } else {
+                    /// AUTO FOCUS NEXT BOX
+                    t.next().focus();
+                }
+            }
+            /// LIMIT DIGITS PER BOX
+            if (e.target.value.length > digitsPerBox) {
+                e.target.value = e.target.value.substr(0,digitsPerBox);
+            }
+///// ONLY NUMBER ALLOWED
+        }).keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A
+                (e.keyCode === 65 && e.ctrlKey === true) ||
+                // Allow: home, end, left, right
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+    </script>
 @endsection

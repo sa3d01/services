@@ -27,9 +27,11 @@ class CategoryController extends MasterController
     public function store(Request $request)
     {
         $category=$this->model->create($request->except('image'));
-        $category->update([
-            'image'=>$request['image']
-        ]);
+        if ($request->hasFile('image')){
+            $category->update([
+                'image'=>$request['image']
+            ]);
+        }
         return redirect()->route('admin.category.index')->with('created');
     }
     public function show($id):object

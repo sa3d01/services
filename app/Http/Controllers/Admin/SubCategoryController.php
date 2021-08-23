@@ -44,7 +44,7 @@ class SubCategoryController extends MasterController
     public function update($id,Request $request)
     {
         $category=$this->model->find($id);
-        $category->update($request->all());
+        $category->update($request->except('image'));
         return redirect()->back()->with('updated');
 
     }

@@ -20,9 +20,9 @@ class VerifyController extends MasterController
     public function resendPhoneVerification(ResendPhoneVerificationRequest $request): object
     {
         $user = User::where('phone', $request['phone'])->first();
-        if ($user->phone_verified_at != null) {
-            return $this->sendError('هذا الحساب مفعل.');
-        }
+//        if ($user->phone_verified_at != null) {
+//            return $this->sendError('هذا الحساب مفعل.');
+//        }
         $unexpired_code_sent = PhoneVerificationCode::where('phone', $request['phone'])->where('expires_at', '>', Carbon::now())->latest()->first();
         if ($unexpired_code_sent) {
             return $this->sendError('تم ارسال كود التفعيل من قبل.');
@@ -34,9 +34,9 @@ class VerifyController extends MasterController
     public function verifyPhone(VerifyPhoneRequest $request): object
     {
         $user = User::where('phone', $request['phone'])->first();
-        if ($user->phone_verified_at != null) {
-            return $this->sendError('هذا الحساب مفعل.');
-        }
+//        if ($user->phone_verified_at != null) {
+//            return $this->sendError('هذا الحساب مفعل.');
+//        }
         $verificationCode = PhoneVerificationCode::where([
             'phone' => $request['phone'],
             'code' => $request['code'],
