@@ -6,9 +6,9 @@
                 <span> الرئيسية </span>
             </a>
         </li>
-        @canany(['roles','admins'])
+{{--        @canany(['roles','admins'])--}}
             <li class="menu-title">الصلاحيات</li>
-            @can('roles')
+{{--            @can('roles')--}}
             <li>
                 <a href="javascript: void(0);">
                     <i class="mdi mdi-controller-classic"></i>
@@ -20,8 +20,8 @@
                     <li><a href="{{route('admin.roles.index')}}">عرض الكل</a></li>
                 </ul>
             </li>
-            @endcan
-            @can('admins')
+{{--            @endcan--}}
+{{--            @can('admins')--}}
             <li>
                 <a href="javascript: void(0);">
                     <i class="mdi mdi-office-building"></i>
@@ -33,8 +33,8 @@
                     <li><a href="{{route('admin.admins.index')}}">عرض الكل</a></li>
                 </ul>
             </li>
-            @endcan
-        @endcan
+{{--            @endcan--}}
+{{--        @endcan--}}
         @canany(['users','providers'])
             <li class="menu-title">أعضاء النظام</li>
             @can('users')
