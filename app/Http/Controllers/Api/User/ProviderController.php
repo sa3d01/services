@@ -53,7 +53,7 @@ class ProviderController extends MasterController
 //                return $provider->rates()->max('rate');
 //            }
 //        );
-
+return $providers->get();
         return ProviderResource::collection($providers->paginate(10));
     }
     public function show($id)
