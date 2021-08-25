@@ -32,19 +32,19 @@ class ProviderController extends MasterController
 
     public function providers()
     {
-//        $providers=User::whereType('PROVIDER');
-//        if (request()->has('name')){
-//            $providers=$providers->where('name','LIKE','%'.request()->input('name').'%');
-//        }
-//        if (request()->has('city_id')){
-//            $providers=$providers->where('city_id',request()->input('city_id'));
-//        }
-//        if (request()->has('category_id')){
-//            $users=Product::where('category_id',request()->input('category_id'))->pluck('user_id');
-//            $providers=$providers->whereIn('id',$users);
-//        }
+        $providers=User::whereType('PROVIDER');
+        if (request()->has('name')){
+            $providers=$providers->where('name','LIKE','%'.request()->input('name').'%');
+        }
+        if (request()->has('city_id')){
+            $providers=$providers->where('city_id',request()->input('city_id'));
+        }
+        if (request()->has('category_id')){
+            $users=Product::where('category_id',request()->input('category_id'))->pluck('user_id');
+            $providers=$providers->whereIn('id',$users);
+        }
 
-        $providers = User::whereType('PROVIDER')::get()->sortByDesc(function ($provider) { return $provider->averageRate(); });
+//        $providers = User::whereType('PROVIDER')::get()->sortByDesc(function ($provider) { return $provider->averageRate(); });
 
         return ProviderResource::collection($providers->paginate(10));
     }
