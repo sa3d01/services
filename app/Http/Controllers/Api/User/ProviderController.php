@@ -44,9 +44,9 @@ class ProviderController extends MasterController
             $providers=$providers->whereIn('id',$users);
         }
 
-        $providers = $providers->sortByDesc(function ($provider) { return $provider->averageRate(); });
+        $providers = $providers->sortByDesc(function ($provider) { return $provider->id; });
 
-        return ProviderResource::collection($providers->paginate(10));
+        return ProviderResource::collection($providers->get());
     }
     public function show($id)
     {
