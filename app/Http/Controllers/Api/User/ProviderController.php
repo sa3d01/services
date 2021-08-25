@@ -43,6 +43,9 @@ class ProviderController extends MasterController
             $users=Product::where('category_id',request()->input('category_id'))->pluck('user_id');
             $providers=$providers->whereIn('id',$users);
         }
+
+        $providers = $providers->sortByDesc(function ($provider) { return $provider->rates()->max('rate'); });
+
         return ProviderResource::collection($providers->paginate(10));
     }
     public function show($id)
