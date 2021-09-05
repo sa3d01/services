@@ -18,13 +18,25 @@
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/colors.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link href="{{asset('css/dropify.min.css')}}" rel="stylesheet" type="text/css" />
+
+    <link href="{{asset('assets/libs/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
+
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"> --}}
+
     @yield('styles')
 </head>
 <body>
 <!-- header -->
 @include('Web.layouts.partials.header')
 <!-- content -->
+<div style="visibility: hidden" id="msg" data-content={{session()->get('status')}}></div>
+
 @yield('content')
+
 <!--scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
 <script type="text/javascript " src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
@@ -32,12 +44,54 @@
 <script type="text/javascript " src="{{asset('js/wow.min.js')}}"></script>
 <script type="text/javascript " src="{{asset('js/owl.carousel.min.js')}}"></script>
 <script type="text/javascript " src="{{asset('js/scripts.js')}}"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+<!-- dropify js -->
+<script src="{{asset('js/vendor.min.js')}}"></script>
+
+<script src="{{asset('js/dropify.min.js')}}"></script>
+<script src="{{asset('js/form-fileupload.init.js')}}"></script>
+
 <script type="text/javascript">
     var url = "{{ route('LangChange') }}";
     $(".Langchange").change(function(){
         window.location.href = url + "?lang="+ $(this).val();
     });
 </script>
+
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js.map"></script>
+ --}}
+ <script src="{{asset('assets/libs/toastr/toastr.min.js')}}"></script>
+ <script src="{{asset('assets/js/pages/toastr.init.js')}}"></script>
+
 @yield('script')
+<script type="text/javascript">
+    @if(session()->has('status'))
+        $(document).ready(function () {
+        var msg=$('#msg').attr('data-content');
+        toastr.options = {
+            "closeButton": true,
+            "debug": true,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-left",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        toastr.success({{ session('status') }})
+    })
+    @endif
+</script>
 </body>
 </html>

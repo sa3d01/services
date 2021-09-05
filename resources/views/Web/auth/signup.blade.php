@@ -22,23 +22,38 @@
                     @if($type=='user')
                         <div class="col-md-6">
                             <div class="form-group wow fadeInDown ">
-                                <input required name="name" type="text" class="form-control" placeholder="الاسم" id="name">
+                                <input required name="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="الاسم" id="name">
                             </div>
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                             <div class="form-group wow fadeInDown ">
-                                <input name="phone" type="tel" class="form-control" placeholder="رقم الجوال" id="phone" pattern="(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})" oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'برجاء ادخال رقم جوال صحيح يبدأ بـ 05');"  onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                <input name="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" placeholder="رقم الجوال" id="phone" pattern="(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})" oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'برجاء ادخال رقم جوال صحيح يبدأ بـ 05');"  onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                             </div>
+                            @error('phone')
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                             <div class="form-group wow fadeInDown ">
-                                <select required class="form-control" name="city_id">
+                                <select required class="form-control @error('city_id') is-invalid @enderror" name="city_id">
                                     <option hidden>المدينة</option>
                                     @foreach(\App\Models\DropDown::whereClass('City')->whereStatus(1)->get() as $city)
-                                        @php($city_name_column='name_'.session()->get('locale'))
+                                        @php($city_name_column='name_'.session()->get('locale')??'ar')
                                         <option value="{{$city->id}}">{{$city->$city_name_column}}</option>
                                     @endforeach
                                 </select>
                                 <i class="fas fa-chevron-down yellow"></i>
                             </div>
+                            @error('city_id')
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                             <div class="form-group wow fadeInDown">
-                                <input required name="password" type="password" class="form-control" placeholder="كلمة المرور" id="pass">
+                                <input required name="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" id="pass">
                                 <i class="fas fa-eye togglePass yellow " toggle="#pass"></i>
                             </div>
                             <div class="form-group custom-control custom-checkbox wow fadeInDown">
@@ -49,13 +64,23 @@
                     @else
                         <div class="col-md-6">
                             <div class="form-group wow fadeInDown ">
-                                <input required name="name" type="text" class="form-control" placeholder="الاسم" id="name">
+                                <input required name="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="الاسم" id="name">
                             </div>
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                             <div class="form-group wow fadeInDown ">
-                                <input name="phone" type="text" class="form-control" placeholder="رقم الجوال" id="phone" pattern="(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})" oninput=" setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'برجاء ادخال رقم جوال صحيح يبدأ بـ 05');"  onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="رقم الجوال" id="phone" pattern="(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})" oninput=" setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'برجاء ادخال رقم جوال صحيح يبدأ بـ 05');"  onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                             </div>
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="form-group wow fadeInDown ">
-                                <select class="form-control" name="city_id" id="city_id">
+                                <select class="form-control @error('city_id') is-invalid @enderror" name="city_id" id="city_id">
                                     <option hidden>المدينة</option>
                                     @foreach(\App\Models\DropDown::whereClass('City')->whereStatus(1)->get() as $city)
                                         @php($city_name_column='name_'.session()->get('locale'))
@@ -64,10 +89,20 @@
                                 </select>
                                 <i class="fas fa-chevron-down yellow"></i>
                             </div>
+                            @error('city_id')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="form-group wow fadeInDown">
-                                <input required name="password" type="password" class="form-control" placeholder="كلمة المرور" id="pass">
+                                <input required name="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" id="pass">
                                 <i class="fas fa-eye togglePass yellow " toggle="#pass"></i>
                             </div>
+                            @error('passord')
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                             <div>
                                 <div class="form-group custom-control custom-checkbox wow fadeInDown">
                                     <input type="checkbox" class="custom-control-input" id="join" name="">

@@ -68,7 +68,7 @@
                 if (t.attr("id") === "i4") {
                     /// SUBMIT HERE
                     var txt = $("#i1").val() + "" + $("#i2").val() + "" + $("#i3").val() + "" + $("#i4").val();
-                    alert(txt);
+                 //   alert(txt);
                 } else {
                     /// AUTO FOCUS NEXT BOX
                     t.next().focus();

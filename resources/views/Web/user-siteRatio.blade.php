@@ -1,99 +1,21 @@
-<!DOCTYPE html>
-<html lang="ar">
-
-<head>
-    <!-- Meta-->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- title -->
-    <title>في الخدمة</title>
-    <link rel="shortcut icon" type="image/ico" href="../../../../public/images/favIcon.ico" />
-
-    <!-- styles -->
-    <link href="css/dropify.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-rtl.min.css">
-    <link rel="stylesheet" href="../../../../public/fonts/fontawesome/css/all.css">
-    <link rel="stylesheet" href='css/animate.css'>
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/colors.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-    <!-- header -->
-    <header>
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light nav-slider pt-5">
-            <div class="container">
-                <a class="navbar-brand d-block d-lg-none sm-logo" href="home.blade.php">
-                    <img src="../../../../public/images/logo.png">
-                </a>
-                <button class="navbar-toggler collapsed default-bg" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="home.blade.php">
-                                <i class="fas fa-home"></i> الرئيسية
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="user-editprofile.blade.php">
-                                <i class="far fa-user"></i> الصفحة الشخصية
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="user-notification.blade.php">
-                                <i class="far fa-bell"></i> الإشعارات
-                            </a>
-                        </li>
-
-                    </ul>
-                    <a class="navbar-brand d-none d-lg-block mx-5 lg-logo mx-auto" href="home.blade.php">
-                        <img src="../../../../public/images/logo.png" class="mx-5">
-                    </a>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="user-siteRatio.blade.php">
-                                <i class="fas fa-percent mx-1"></i> نسبة الموقع
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-power-off"></i> تسجيل خروج
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <select class="border-0 nav-link">
-                                <option value="ar">اللغة العربية</option>
-                                <option value="en">English</option>
-                            </select>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!--  -->
+@extends('Web.layouts.master')
+@section('title', 'في الخدمة')
+@section('content')
     <div class="container py-5">
         <div class="row">
             <div class="col-md-6 d-flex my-3">
                 <div class="d-inline-block">
-                    <img src="../../../../public/images/ratio.png" class="img-fluid" alt="">
+                    <img src="{{asset('images/ratio.png')}}" class="img-fluid" alt="">
                 </div>
                 <div class="d-inline-block px-3">
-                    <h1 class="w-700 yellow d-inline-block m-0">50</h1>
+                    <h1 class="w-700 yellow d-inline-block m-0">{{$setting['app_ratio']}}</h1>
                     <span class="yellow">%</span>
                     <label class="text-muted d-block">
                         نسبة التطبيق
                     </label>
                     <p class="m-0">
-                        في حالة استفادتك من التطبيق عليك بتحويل 5% من قيمة الخدمة المقدمة للمستخدم لأحد حسابتنا البنكية
+                        <input value="{{$setting['app_ratio']}}" type="hidden" name="ratio" id="ratio">
+                        في حالة استفادتك من التطبيق عليك بتحويل {{$setting['app_ratio']}}% من قيمة الخدمة المقدمة للمستخدم لأحد حسابتنا البنكية
                     </p>
                 </div>
             </div>
@@ -105,32 +27,38 @@
                     <form action="" class="ratioForm">
                         إذا تم تقديم الخدمة بسعر
                         <div class="form-group wow fadeInDown d-inline-block w-25 text-center">
-                            <input type="text" class="form-control text-center" placeholder="" id="name">
+                            <input type="number" class="form-control text-center" placeholder="" id="amount">
                         </div>
-                        ريال سعودي فإن المبلغ المستحق دفعه
-                        <button type="submit" class="btn btn-blue wow fadeInUp px-4 mx-2 mt-2">احسب</button>
-                        <label class="w-700">هو 120 ريال سعودي</label>
+                         فإن المبلغ المستحق دفعه
+                        {{-- <button type="submit" class="btn btn-blue wow fadeInUp px-4 mx-2 mt-2">احسب</button> --}}
+                        <label class="w-700">هو
+                            <input disabled value="0" id="debit">
+                            ريال سعودي</label>
                     </form>
                 </div>
             </div>
-            <div class="col-md-6 mx-auto text-center my-3 pt-md-5">
-                <h5 class="w-700">
-                    إرفاق إيصال التحويل البنكي
-                </h5>
-                <div class="form-group mt-5">
-                    <input type="file" class="dropify id-img" data-height="300" />
-                </div>
-                <a href="" class="btn btn-blue mt-4 w-100 wow fadeInUp">إرسال</a>
-                <div class="mt-5">
-                    <p class="my-auto text-center">
-                        هل تريد الاطلاع على الحسابات البنكية ؟
-
-                        <a href="home.blade.php" class="yellow w-700">
-                            اضغط هنا
-                        </a>
-                    </p>
-                </div>
+            <form enctype="multipart/form-data" class="col-md-6 mx-auto text-center my-3 pt-md-5" method="POST" class="row" action="{{route('transfer')}}">
+                @csrf
+                {{-- <div class="col-md-6 mx-auto text-center my-3 pt-md-5"> --}}
+                    <h5 class="w-700">
+                        إرفاق إيصال التحويل البنكي
+                    </h5>
+                        <div class="form-group mt-5">
+                            <input required name="image" type="file" class="dropify id-img" data-height="300" />
+                        </div>
+                        <button type="submit" class="btn btn-blue mt-4 w-100 wow fadeInUp">إرسال</a>
+                {{-- </div> --}}
+            </form>
+            <br>
+            <div class="mt-5">
+                <p class="my-auto text-center" style="color: black">
+                    هل تريد الاطلاع على الحسابات البنكية ؟
+                    <a href="{{route('home')}}#banks" class="yellow w-700">
+                        اضغط هنا
+                    </a>
+                </p>
             </div>
+
         </div>
     </div>
     <!-- footer -->
@@ -138,41 +66,41 @@
         <div class="container pt-5">
             <div class="row  pb-lg-3">
                 <div class="col-md-4 mb-lg-0 mb-4 pl-5">
-                    <img src="../../../../public/images/Logo.png" alt="" class="img-fluid logo">
+                    <img src="{{asset('images/logo.png')}}">
                     <p class="pt-4">
-                        هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد
-                    </p>
+                        {{$about_note}}                    </p>
                 </div>
                 <div class="col-md-4 mb-lg-0 mb-4">
                     <h5 class="default-color w-700 mb-3">
                         تواصل معنا
                     </h5>
                     <label class="d-block">
-                        01123456789
+                        {{$setting['mobile']}}
                     </label>
-                    <a href="mailto: felkhedma@gmail.com " class="text-muted ">felkhedma@gmail.com</a>
+                    <a href="mailto: {{$setting['email']}} " class="text-muted ">{{$setting['email']}}</a>
                     <div>
                         <ul class="p-0 m-0 social mt-4">
                             <li class="d-inline-block mx-1">
-                                <a href=" " class="text-white">
-                                    <img src="../../../../public/images/icons/fb.png" class="img-fluid" alt="">
+                                <a target="_blank" href="{{$facebook}}" class="text-white">
+                                    <img src="{{asset('images/icons/fb.png')}}" class="img-fluid" alt="">
                                 </a>
                             </li>
                             <li class="d-inline-block mx-1">
-                                <a href=" " class="text-white">
-                                    <img src="../../../../public/images/icons/tw.png" class="img-fluid" alt="">
+                                <a target="_blank" href="{{$twitter}}"  class="text-white">
+                                    <img src="{{asset('images/icons/tw.png')}}" class="img-fluid" alt="">
                                 </a>
                             </li>
                             <li class="d-inline-block mx-1">
-                                <a href=" " class="text-white">
-                                    <img src="../../../../public/images/icons/snap.png" class="img-fluid" alt="">
+                                <a target="_blank" href="{{$snap}}"  class="text-white">
+                                    <img src="{{asset('images/icons/snap.png')}}" class="img-fluid" alt="">
                                 </a>
                             </li>
                             <li class="d-inline-block mx-1">
-                                <a href=" " class="text-white">
-                                    <img src="../../../../public/images/icons/insta.png" class="img-fluid" alt="">
+                                <a target="_blank" href="{{$insta}}" class="text-white">
+                                    <img src="{{asset('images/icons/insta.png')}}" class="img-fluid" alt="">
                                 </a>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -184,17 +112,17 @@
                     <div>
                         <ul class="m-0 p-0">
                             <li>
-                                <a href="user-siteRatio.blade.php" class="text-dark">
+                                <a href="{{route('siteRatio')}}" class="text-dark">
                                 نسبة الموقع
                                </a>
                             </li>
                             <li>
-                                <a href="user-terms.blade.php" class="text-dark">
+                                <a href="{{route('terms')}}" class="text-dark">
                                     الشروط و الأحكام
                                </a>
                             </li>
                             <li>
-                                <a href="user-policy.blade.php" class="text-dark">
+                                <a href="{{route('licence')}}" class="text-dark">
                                     سياسة الخصوصية
                                </a>
                             </li>
@@ -211,19 +139,52 @@
             </p>
         </div>
     </footer>
-    <!--scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js "></script>
-    <script type="text/javascript " src="../../../../public/js/jquery-3.2.1.min.js "></script>
-    <script type="text/javascript " src="../../../../public/js/bootstrap.min.js "></script>
-    <script type="text/javascript " src="../../../../public/js/wow.min.js "></script>
-    <script type="text/javascript " src="../../../../public/js/owl.carousel.min.js "></script>
-    <script type="text/javascript " src="../../../../public/js/scripts.js "></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
-    <!-- dropify js -->
-    <script src="../../../../public/js/vendor.min.js"></script>
-
-    <script src="../../../../public/js/dropify.min.js"></script>
-    <script src="../../../../public/js/form-fileupload.init.js"></script>
-</body>
-
-</html>
+@endsection
+@section('script')
+    <script src="{{asset('assets/libs/toastr/toastr.min.js')}}"></script>
+    <script src="{{asset('assets/js/pages/toastr.init.js')}}"></script>
+    @if($errors->any())
+        <div style="visibility: hidden" id="errors" data-content="{{$errors->first()}}"></div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var errors=$('#errors').attr('data-content');
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-left",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                toastr.error(errors)
+            })
+        </script>
+    @endif
+    <script type="text/javascript">
+        $(function(){
+            $('#amount').on('input', function(e) {
+                calculate();
+            });
+            function calculate(){
+                var amount = parseInt($('#amount').val());
+                var ratio = parseInt($('#ratio').val());
+                var debit="";
+                if(isNaN(amount) || isNaN(ratio)){
+                    debit=" ";
+                }else{
+                    debit = ((amount * ratio) / 100);
+                }
+                $('#debit').val(debit);
+            }
+        });
+    </script>
+@endsection

@@ -7,16 +7,12 @@
             <div class="col-md-6 rtl my-3 p-md-5">
                 <img src="{{asset('images/header.png')}}" class="img-fluid p-md-5 p-4 wow zoomIn" alt="">
             </div>
-            @php
-                $about_title='title_'.session()->get('locale');
-                $about_note='note_'.session()->get('locale');
-            @endphp
             <div class="col-md-6 rtl my-auto wow fadeIn py-3 ">
                 <h4 class="w-700">
-                    {{\App\Models\Page::where('type','about')->value($about_title)}}
+                    {{$about_title}}
                 </h4>
                 <p>
-                    {{\App\Models\Page::where('type','about')->value($about_note)}}
+                    {{$about_note}}
                 </p>
                 <div>
                     <div class="input-group my-3 pt-3 w-75">
@@ -45,22 +41,22 @@
         <div class="headerSocial  d-none d-lg-block">
             <ul class="p-0 m-0 social mt-4">
                 <li class="my-2">
-                    <a target="_blank" href=" " class="text-white">
+                    <a target="_blank" href="{{$facebook}}" class="text-white">
                         <img src="{{asset('images/icons/fb.png')}}" class="img-fluid" alt="">
                     </a>
                 </li>
                 <li class="my-2">
-                    <a href=" " class="text-white">
+                    <a target="_blank" href="{{$twitter}}"  class="text-white">
                         <img src="{{asset('images/icons/tw.png')}}" class="img-fluid" alt="">
                     </a>
                 </li>
                 <li class="my-2">
-                    <a href=" " class="text-white">
+                    <a target="_blank" href="{{$snap}}"  class="text-white">
                         <img src="{{asset('images/icons/snap.png')}}" class="img-fluid" alt="">
                     </a>
                 </li>
                 <li class="my-2">
-                    <a href=" " class="text-white">
+                    <a target="_blank" href="{{$insta}}" class="text-white">
                         <img src="{{asset('images/icons/insta.png')}}" class="img-fluid" alt="">
                     </a>
                 </li>
@@ -130,18 +126,22 @@
                 <h4 class="w-700 pb-4 text-center text-white">
                     تواصل معنا
                 </h4>
-                <form action="" class="px-md-5">
+                <form class="px-md-5" method="POST" class="row" action="{{route('contact')}}">
+                    @csrf
                     <div class="form-group wow fadeInDown">
-                        <select class="form-control" name="" id="">
+                        <select class="form-control" name="contact_type_id" id="">
                             <option hidden>نوع رسالة التواصل</option>
-                            <option value="cairo">شكوى</option>
+                            @foreach ($contact_types as $contact_type)
+                                <option value="{{$contact_type->id}}">{{$contact_type['name_ar']}}</option>
+                            @endforeach
                         </select>
                         <i class="fas fa-chevron-down yellow"></i>
                     </div>
                     <div class="form-group wow fadeInDown">
-                        <textarea class="form-control p-4 br-25" rows="5" placeholder="الرسالة"></textarea>
+                        <textarea name="message" class="form-control p-4 br-25" rows="5" placeholder="الرسالة"></textarea>
                     </div>
-                    <a href="auth/signupActivation.blade.php" class="btn btn-blue mt-4 w-100 wow fadeInUp">ارسال</a>
+                    <button type="submit" class="btn btn-blue mt-4 w-100 wow fadeInUp">ارسال
+                    </button>
                 </form>
             </div>
         </div>
@@ -175,7 +175,7 @@
                 <div class="col-md-4 mb-lg-0 mb-4 pl-5">
                     <img src="{{asset('images/logo.png')}}" alt="" class="img-fluid logo">
                     <p class="pt-4">
-                        {{\App\Models\Page::where('type','about')->value($about_note)}}
+                        {{$about_note}}
                     </p>
                 </div>
                 <div class="col-md-4 mb-lg-0 mb-4">
@@ -183,28 +183,28 @@
                         تواصل معنا
                     </h5>
                     <label class="d-block">
-                        {{\App\Models\Setting::value('mobile')}}
+                        {{$setting['mobile']}}
                     </label>
-                    <a href="mailto: felkhedma@gmail.com " class="text-muted ">{{\App\Models\Setting::value('email')}}</a>
+                    <a href="mailto: {{$setting['email']}} " class="text-muted ">{{$setting['email']}}</a>
                     <div>
                         <ul class="p-0 m-0 social mt-4">
                             <li class="d-inline-block mx-1">
-                                <a href=" " class="text-white">
+                                <a target="_blank" href="{{$facebook}}" class="text-white">
                                     <img src="{{asset('images/icons/fb.png')}}" class="img-fluid" alt="">
                                 </a>
                             </li>
                             <li class="d-inline-block mx-1">
-                                <a href=" " class="text-white">
+                                <a target="_blank" href="{{$twitter}}"  class="text-white">
                                     <img src="{{asset('images/icons/tw.png')}}" class="img-fluid" alt="">
                                 </a>
                             </li>
                             <li class="d-inline-block mx-1">
-                                <a href=" " class="text-white">
+                                <a target="_blank" href="{{$snap}}"  class="text-white">
                                     <img src="{{asset('images/icons/snap.png')}}" class="img-fluid" alt="">
                                 </a>
                             </li>
                             <li class="d-inline-block mx-1">
-                                <a href=" " class="text-white">
+                                <a target="_blank" href="{{$insta}}" class="text-white">
                                     <img src="{{asset('images/icons/insta.png')}}" class="img-fluid" alt="">
                                 </a>
                             </li>
@@ -219,17 +219,17 @@
                     <div>
                         <ul class="m-0 p-0">
                             <li>
-                                <a href="" class="text-dark">
+                                <a href="{{route('siteRatio')}}" class="text-dark">
                                 نسبة الموقع
                                </a>
                             </li>
                             <li>
-                                <a href="" class="text-dark">
+                                <a href="{{route('terms')}}" class="text-dark">
                                     الشروط و الأحكام
                                </a>
                             </li>
                             <li>
-                                <a href="" class="text-dark">
+                                <a href="{{route('licence')}}" class="text-dark">
                                     سياسة الخصوصية
                                </a>
                             </li>

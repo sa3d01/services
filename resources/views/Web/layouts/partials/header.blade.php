@@ -32,11 +32,21 @@
                             </a>
                         </li>
                         @auth
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="far fa-user"></i> الصفحة الشخصية
-                                </a>
-                            </li>
+                            @if(auth()->user()->type=='PROVIDER')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('providerProfile')}}">
+                                        <i class="far fa-user"></i> الصفحة الشخصية
+                                    </a>
+                                </li>
+
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('userProfile')}}">
+                                        <i class="far fa-user"></i> الصفحة الشخصية
+                                    </a>
+                                </li>
+
+                            @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <i class="far fa-bell"></i> الإشعارات
@@ -48,11 +58,6 @@
                         <img src="{{asset('images/logo.png')}}" class="mx-5">
                     </a>
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-percent mx-1"></i> نسبة الموقع
-                            </a>
-                        </li>
                         @auth
                             @if(auth()->user()->type=='PROVIDER')
                                 <li class="nav-item">
@@ -60,10 +65,27 @@
                                         <i class="fas fa-plus-circle"></i>إضافة خدمة
                                     </a>
                                 </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('siteRatio')}}">
+                                        <i class="fas fa-percent mx-1"></i> نسبة الموقع
+                                    </a>
+                                </li>
                             @endif
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-power-off"></i> تسجيل خروج
+                                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-power-off"></i>
+                                    <span>تسجيل خروج</span>
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('siteRatio')}}">
+                                    <i class="fas fa-percent mx-1"></i> نسبة الموقع
                                 </a>
                             </li>
                         @endauth

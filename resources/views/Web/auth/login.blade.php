@@ -1,8 +1,5 @@
 @extends('Web.layouts.master')
 @section('title', 'في الخدمة')
-@section('styles')
-    <link href="{{asset('assets/libs/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
-@endsection
 @section('content')
     <div class="container py-5">
         <div class="row ">
@@ -59,9 +56,7 @@
     </div>
 @endsection
 @section('script')
-    <script src="{{asset('assets/libs/toastr/toastr.min.js')}}"></script>
-    <script src="{{asset('assets/js/pages/toastr.init.js')}}"></script>
-    @if($errors->any())
+        @if($errors->any())
         <div style="visibility: hidden" id="errors" data-content="{{$errors->first()}}"></div>
         <script type="text/javascript">
             $(document).ready(function () {

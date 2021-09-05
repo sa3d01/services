@@ -28,9 +28,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validator($request);
-        if(Auth::guard($request['type'])->attempt($request->only('phone','password'),$request->filled('remember'))){
+        if(Auth::guard('web')->attempt($request->only('phone','password'),$request->filled('remember'))){
             return redirect()
-                ->intended(route('home'))
+                ->route('home')
                 ->with('status','You are Logged in!');
         }
         return $this->loginFailed();
