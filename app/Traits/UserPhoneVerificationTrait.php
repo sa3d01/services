@@ -11,7 +11,7 @@ trait UserPhoneVerificationTrait
 
     protected function createPhoneVerificationCodeForUser($user)
     {
-        $code=rand(1111,9999);
+        $code=2021;//rand(1111,9999);
         $data = [
             'user_id' => $user->id,
             'phone' => $user->phone,

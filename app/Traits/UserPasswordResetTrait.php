@@ -9,7 +9,7 @@ trait UserPasswordResetTrait
 {
     protected function createPasswordResetCodeForUser($user)
     {
-        $code=rand(1111,9999);
+        $code=2021;//rand(1111,9999);
         $data = [
             'phone' => $user->phone,
             'token' => $code,
