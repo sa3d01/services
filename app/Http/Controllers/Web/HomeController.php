@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Models\Slider;
 use App\Models\ContactType;
-use Illuminate\Support\Facades\App;
+use Carbon\Carbon;
 
 class HomeController extends MasterController
 {
@@ -16,8 +16,29 @@ class HomeController extends MasterController
 
     public function home()
     {
+        $data=Slider::all()->filter(function($slider) {
+            $start_date=Carbon::parse($slider->start_date);
+            $end_date=Carbon::parse($slider->end_date);
+            if (Carbon::now()->between($start_date, $end_date)) {
+                return $slider;
+            }
+        });
+        $sliders=[];
+        foreach ($data as $datum){
+            $result['id']=$datum->id;
+            if (request()->header('lang')=='ar'){
+                $result['title']=$datum->title_ar;
+                $result['note']=$datum->note_ar;
+            }else{
+                $result['title']=$datum->title_en;
+                $result['note']=$datum->note_en;
+            }
+            $result['image']=$datum->image;
+            $sliders[]=$result;
+        }
+
         $contact_types=ContactType::where('status',1)->get();
-        return view('Web.home',compact('contact_types'));
+        return view('Web.home',compact('contact_types','sliders'));
     }
     public function siteRatio()
     {

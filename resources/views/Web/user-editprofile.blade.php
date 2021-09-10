@@ -57,7 +57,6 @@
             </div>
         </div>
     </div>
-
-
+    @include('Web.layouts.partials.footer')
 @endsection
 

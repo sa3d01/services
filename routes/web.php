@@ -25,8 +25,11 @@ Route::namespace('App\Http\Controllers\Web')->group(function() {
     Route::post('transfer', 'TransferController@store')->name('transfer');
     Route::post('contact', 'ContactController@store')->name('contact');
 
-    Route::get('/profile','UserController@profile')->name('userProfile');
+    Route::get('/user-profile','UserController@profile')->name('userProfile');
+
     Route::get('/profile','ProviderController@profile')->name('providerProfile');
+    Route::get('/subscribe-package','ProviderController@subscribePackagePage')->name('provider.subscribe.show');
+    Route::post('/subscribe','ProviderController@subscribePackage')->name('provider.subscribe');
 
 
 

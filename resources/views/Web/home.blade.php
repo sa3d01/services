@@ -14,25 +14,23 @@
                 <p>
                     {{$about_note}}
                 </p>
-                <div>
-                    <div class="input-group my-3 pt-3 w-75">
-                        <input type="text" class="form-control br-25 px-4" placeholder="بحث عن مزود خدمة">
-                        <div class="input-group-append">
-                            <a href="user-search.blade.php" class="btn btn-blue mr-3 search-btn "><i class="fas fa-search yellow"></i></a>
+                @if (!auth()->check() || auth()->user()->type=='USER')
+                    <div>
+                        <div class="input-group my-3 pt-3 w-75">
+                            <input type="text" class="form-control br-25 px-4" placeholder="بحث عن مزود خدمة">
+                            <div class="input-group-append">
+                                <a href="user-search.blade.php" class="btn btn-blue mr-3 search-btn "><i class="fas fa-search yellow"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
                 <div class="w-75">
                     <div class="owl-carousel owl-theme " id="headerSlider">
-                        <div class="item my-3">
-                            <img src="{{asset('images/headerSlide.png')}}" class="img-fluid br-25" alt="">
-                        </div>
-                        <div class="item my-3">
-                            <img src="{{asset('images/headerSlide.png')}}" class="img-fluid br-25" alt="">
-                        </div>
-                        <div class="item my-3">
-                            <img src="{{'images/headerSlide.png'}}" class="img-fluid br-25" alt="">
-                        </div>
+                        @foreach ($sliders as $slider)
+                            <div class="item my-3">
+                                <img src="{{$slider['image']}}" class="img-fluid br-25" alt="">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -63,62 +61,11 @@
             </ul>
         </div>
     </div>
-    <!-- categories -->
-    <div class="container px-md-0 p-5">
-        <h4 class="w-700 pb-4">
-            المجالات
-        </h4>
-        <div class="row">
-            <div class="owl-carousel owl-theme mt-3 text-center" id="fields">
-                @foreach(\App\Models\Category::where('parent_id',null)->where('banned',0)->get() as $category)
-                <div class="item ">
-                    <a href="user-majors.blade.php">
-                        <div class="bg-light p-3">
-                            <img src="{{$category->image}}" class="img-fluid w-auto d-inline-block" alt="">
-                            @php($category_name_column='name_'.session()->get('locale'))
-                            <h4 class="d-inline-block pr-2 m-0 blue">{{$category->$category_name_column}}</h4>
-                        </div>
-                    </a>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-    <!-- Most rated -->
-    <div class="container px-md-0 p-5">
-        <h4 class="w-700 pb-4">
-            الأكثر تقييماً
-        </h4>
-        <div class="row">
-            <div class="owl-carousel owl-theme mt-3" id="rated">
-                @foreach(\App\Models\User::whereType('PROVIDER')->take(10)->get() as $provider)
-                <div class="item ">
-                    <a href="">
-                        <div class="bg-light br-25  p-3">
-                            <div class="yellow f-25 w-700">
-                                <i class="far fa-star"></i>
-                                <h5 class="f-25 d-inline-block mb-3">{{$provider->averageRate()}}</h5>
-                            </div>
-                            <div class="d-flex">
-                                <div>
-                                    <img src="{{$provider->image}}" class="img-fluid" alt="">
-                                </div>
-                                <div class="mr-2">
-                                    <h6 class="text-dark">
-                                        {{$provider->name}}
-                                    </h6>
-                                    <label class="text-muted">
-                                        {{$provider->phone}}
-                                </label>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
+    @if (auth()->check() && auth()->user()->type=='PROVIDER')
+        @include('Web.layouts.partials.provider-home')
+    @else
+        @include('Web.layouts.partials.user-home')
+    @endif
     <!-- contact form -->
     <div class="container pt-5">
         <div class="row">
@@ -168,82 +115,5 @@
             @endforeach
         </div>
     </div>
-    <!-- footer -->
-    <footer>
-        <div class="container pt-5">
-            <div class="row  pb-lg-3">
-                <div class="col-md-4 mb-lg-0 mb-4 pl-5">
-                    <img src="{{asset('images/logo.png')}}" alt="" class="img-fluid logo">
-                    <p class="pt-4">
-                        {{$about_note}}
-                    </p>
-                </div>
-                <div class="col-md-4 mb-lg-0 mb-4">
-                    <h5 class="default-color w-700 mb-3">
-                        تواصل معنا
-                    </h5>
-                    <label class="d-block">
-                        {{$setting['mobile']}}
-                    </label>
-                    <a href="mailto: {{$setting['email']}} " class="text-muted ">{{$setting['email']}}</a>
-                    <div>
-                        <ul class="p-0 m-0 social mt-4">
-                            <li class="d-inline-block mx-1">
-                                <a target="_blank" href="{{$facebook}}" class="text-white">
-                                    <img src="{{asset('images/icons/fb.png')}}" class="img-fluid" alt="">
-                                </a>
-                            </li>
-                            <li class="d-inline-block mx-1">
-                                <a target="_blank" href="{{$twitter}}"  class="text-white">
-                                    <img src="{{asset('images/icons/tw.png')}}" class="img-fluid" alt="">
-                                </a>
-                            </li>
-                            <li class="d-inline-block mx-1">
-                                <a target="_blank" href="{{$snap}}"  class="text-white">
-                                    <img src="{{asset('images/icons/snap.png')}}" class="img-fluid" alt="">
-                                </a>
-                            </li>
-                            <li class="d-inline-block mx-1">
-                                <a target="_blank" href="{{$insta}}" class="text-white">
-                                    <img src="{{asset('images/icons/insta.png')}}" class="img-fluid" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-lg-0 mb-4 ">
-                    <h5 class="default-color w-700 mb-3">
-                        روابط مهمة
-                    </h5>
-                    <div>
-                        <ul class="m-0 p-0">
-                            <li>
-                                <a href="{{route('siteRatio')}}" class="text-dark">
-                                نسبة الموقع
-                               </a>
-                            </li>
-                            <li>
-                                <a href="{{route('terms')}}" class="text-dark">
-                                    الشروط و الأحكام
-                               </a>
-                            </li>
-                            <li>
-                                <a href="{{route('licence')}}" class="text-dark">
-                                    سياسة الخصوصية
-                               </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-        <div class="copy-right text-center py-3 text-muted default-bg ">
-            <p class="m-0 px-5 ">
-                جميع الحقوق محفوظة © 2021 - موقع في الخدمة
-            </p>
-        </div>
-    </footer>
+    @include('Web.layouts.partials.footer')
 @endsection

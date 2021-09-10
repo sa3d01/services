@@ -1,8 +1,9 @@
 // =================== wow script ===================
-new WOW().init();
 
 // ==================================================
 $(document).ready(function() {
+    new WOW().init();
+
     // ==========================================
     $('.dropdown-menu').click(function(e) {
         e.stopPropagation();

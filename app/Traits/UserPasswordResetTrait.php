@@ -32,7 +32,8 @@ trait UserPasswordResetTrait
                 "EnableDR" => False,
                 "Tagname" => "خدماتك",
                 "VariableList" => "0"
-            ));
+            )
+        );
         $opts = array('http' =>
             array(
                 'method' => 'GET',

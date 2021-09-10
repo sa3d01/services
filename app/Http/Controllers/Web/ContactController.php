@@ -10,6 +10,7 @@ class ContactController extends MasterController
     public function __construct()
     {
         $this->middleware('auth');
+        parent::__construct();
     }
     public function store(Request $request)
     {
