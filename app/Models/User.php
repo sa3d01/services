@@ -148,4 +148,8 @@ class User extends Authenticatable implements JWTSubject, HasMedia
         }
         return $this->rates()->sum('rate')/$this->rates()->count('rate');
     }
+    public function socials()
+    {
+        return $this->hasMany(Social::class,'user_id','id');
+    }
 }

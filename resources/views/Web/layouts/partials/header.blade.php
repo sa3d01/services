@@ -48,7 +48,7 @@
 
                             @endif
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{route('notifications')}}">
                                     <i class="far fa-bell"></i> الإشعارات
                                 </a>
                             </li>
@@ -61,7 +61,7 @@
                         @auth
                             @if(auth()->user()->type=='PROVIDER')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{route('product.create')}}">
                                         <i class="fas fa-plus-circle"></i>إضافة خدمة
                                     </a>
                                 </li>

@@ -45,7 +45,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="user-notification.blade.php">
+                            <a class="nav-link" href="notification.blade.php">
                                 <i class="far fa-bell"></i> الإشعارات
                             </a>
                         </li>
@@ -56,7 +56,7 @@
                     </a>
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="user-notification.blade.php">
+                            <a class="nav-link" href="notification.blade.php">
                                 <i class="fas fa-percent mx-1"></i> نسبة الموقع
                             </a>
                         </li>

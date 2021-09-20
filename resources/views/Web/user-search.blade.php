@@ -45,7 +45,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="user-notification.blade.php">
+                            <a class="nav-link" href="notification.blade.php">
                                 <i class="far fa-bell"></i> الإشعارات
                             </a>
                         </li>

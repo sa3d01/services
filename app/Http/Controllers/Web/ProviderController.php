@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\Contact;
+use App\Models\Package;
+use App\Models\PackageUser;
+use App\Models\Social;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProviderController extends MasterController
@@ -14,10 +18,33 @@ class ProviderController extends MasterController
     }
     public function profile()
     {
-        return view('Web.user-editprofile');
+        return view('Web.auth.provider-editprofile');
     }
-    public function subscribePackagePage()
+    public function updateProfile($id,Request $request)
     {
-        return view('Web.provider-receipt');
+        $provider=User::find($id);
+        $provider->update($request->all());
+        $social=Social::where('user_id',$id)->first();
+        if (!$social){
+            $social=Social::create(['user_id'=>$id]);
+        }
+        $social->update($request->all());
+        return redirect()->back();
+    }
+    public function subscribePackagePage($id)
+    {
+        return view('Web.provider-receipt',compact('id'));
+    }
+    public function subscribePackage(Request $request)
+    {
+        $data = $request->except('image');
+        $package=Package::find($request['package_id']);
+        $data['amount']=$package->price;
+        $data['user_id'] = auth()->id();
+        $package_user=PackageUser::create($data);
+        $package_user->update([
+            'image'=>$request['image']
+        ]);
+        return redirect()->back()->with('status','يرجي انتظار مراجعة الادارة لبياناتك');
     }
 }

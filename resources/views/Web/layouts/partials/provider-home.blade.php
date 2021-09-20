@@ -31,7 +31,7 @@
                                         </p>
                                         <div class="actions ">
                                             <div class="d-inline-block bg-light">
-                                                <a href="provider-editServ.html">
+                                                <a href="{{route('product.edit',$product->id)}}">
                                                     <i class="fas fa-pen yellow"></i>
                                                 </a>
                                             </div>
@@ -69,10 +69,10 @@
                                 <div class="col-md-6">
                                     <div class="row py-3">
                                         <div class="col-md-5">
-                                            <img src="images/work.png" class="img-fluid br-25" alt="">
+                                            <img src="{{$gallery->image}}" class="img-fluid br-25" alt="">
                                             <div class="actions">
                                                 <div class="d-inline-block">
-                                                    <a href="provider-editWork.html">
+                                                    <a href="{{route('gallery.edit',$gallery->id)}}">
                                                         <i class="fas fa-pen yellow"></i>
                                                     </a>
                                                 </div>
@@ -144,16 +144,16 @@
         </div>
         <!-- Subscriptions -->
         @php
-            $package_user=\App\Models\PackageUser::where('user_id',auth()->id())->first();
+            $package_user=\App\Models\PackageUser::where('user_id',auth()->id())->latest()->first();
         @endphp
-        @if (!$package_user || ($package_user->status!='rejected'))
-        <div class="container pt-5">
+        @if (!$package_user || ($package_user->status=='rejected'))
+        <div id="packages" class="container pt-5">
             <h4 class="w-700 pb-4">
                 الاشتراكات
             </h4>
             <div class="row">
                 <div class="col-md-6">
-                    <img src="images/Subscriptions.png" class="img-fluid p-5" alt="">
+                    <img src="{{asset('images/Subscriptions.png')}}" class="img-fluid p-5" alt="">
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -173,7 +173,7 @@
                                         <span>
                                             ريال سعودي
                                         </span>
-                                        <a href="{{route('provider.subscribe.show')}}" class="btn btn-blue mt-4 w-100 wow fadeInUp btn-subscribe">
+                                        <a href="{{route('provider.subscribe.show',$package->id)}}" class="btn btn-blue mt-4 w-100 wow fadeInUp btn-subscribe">
                                             اشترك الآن
                                         </a>
                                     </div>

@@ -31,6 +31,10 @@ class Category extends Model implements HasMedia
     {
         return $this->belongsTo(Category::class, 'parent_id', 'id');
     }
+    public function childs()
+    {
+        return $this->hasMany(Category::class,'parent_id','id');
+    }
 
     protected function getImageAttribute()
     {
