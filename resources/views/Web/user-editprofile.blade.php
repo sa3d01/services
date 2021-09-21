@@ -43,14 +43,14 @@
                     </div>
                     <div class="col-md-6 mx-auto">
                         <a href="#" type="submit" class="btn btn-blue mt-4 w-100 wow fadeInUp">حفظ التعديل</a>
-                        <div class="mt-5">
-                            <p class="my-auto text-center">
-                                هل تريد تغير كلمة المرور ؟
-                                <a href="#" class="yellow w-700">
-                                    اضغط هنا
-                                </a>
-                            </p>
-                        </div>
+{{--                        <div class="mt-5">--}}
+{{--                            <p class="my-auto text-center">--}}
+{{--                                هل تريد تغير كلمة المرور ؟--}}
+{{--                                <a href="#" class="yellow w-700">--}}
+{{--                                    اضغط هنا--}}
+{{--                                </a>--}}
+{{--                            </p>--}}
+{{--                        </div>--}}
                     </div>
 
                 </form>
