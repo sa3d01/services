@@ -72,7 +72,7 @@
                             </span>
                             @enderror
                             <div class="form-group wow fadeInDown ">
-                                <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="رقم الجوال" id="phone" pattern="(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})" oninput=" setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'برجاء ادخال رقم جوال صحيح يبدأ بـ 05');"  onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                <input name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="رقم الجوال" id="phone" >
                             </div>
                             @error('phone')
                                 <span class="invalid-feedback" role="alert">

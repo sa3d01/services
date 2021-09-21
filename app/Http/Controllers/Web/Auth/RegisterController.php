@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Social;
 use App\Models\User;
 use App\Traits\UserPhoneVerificationTrait;
+use App\Utils\PreparePhone;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
@@ -31,6 +33,16 @@ class RegisterController extends Controller
 
     public function RegisterSubmit(Request $request)
     {
+        if ($request->has('phone')) {
+            $phone = new PreparePhone($request->phone);
+            if (!$phone->isValid()) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withErrors([$phone->errorMsg()]);
+            }
+            $request->merge(['phone' => $phone->getNormalized()]);
+        }
         $this->validator($request);
         $data=$request->all();
         $data['last_ip'] = $request->ip();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Utils\PreparePhone;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        if ($request->has('phone')) {
+            $phone = new PreparePhone($request->phone);
+            if (!$phone->isValid()) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withErrors([$phone->errorMsg()]);
+            }
+            $request->merge(['phone' => $phone->getNormalized()]);
+        }
         $this->validator($request);
         if(Auth::guard('web')->attempt($request->only('phone','password'),$request->filled('remember'))){
             return redirect()

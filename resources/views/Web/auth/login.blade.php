@@ -18,7 +18,7 @@
                     @method('POST')
                     <input type="hidden" name="type" value="{{$type}}">
                     <div class="form-group wow fadeInDown">
-                        <input required name="phone" type="tel" class="form-control" placeholder="رقم الجوال" id="phone" pattern="(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})" oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'برجاء ادخال رقم جوال صحيح يبدأ بـ 05');"  onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                        <input required name="phone" type="tel" class="form-control" placeholder="رقم الجوال" id="phone">
                     </div>
                     <div class="form-group wow fadeInDown">
                         <input  required name="password" type="password" class="form-control" placeholder="كلمة المرور" id="pass">
