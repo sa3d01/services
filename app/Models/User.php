@@ -146,7 +146,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia
         if ($this->rates()->count('rate') < 1){
             return 0;
         }
-        return $this->rates()->sum('rate')/$this->rates()->count('rate');
+        return round($this->rates()->sum('rate')/$this->rates()->count('rate'));
     }
     public function socials()
     {

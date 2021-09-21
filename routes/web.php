@@ -22,8 +22,12 @@ Route::namespace('App\Http\Controllers\Web')->group(function() {
     Route::get('/terms', 'HomeController@terms')->name('terms');
     Route::get('/licence', 'HomeController@licence')->name('licence');
 
+    Route::get('search-provider', 'UserController@search')->name('search-provider');
+    Route::get('provider/{id}','ProviderController@show')->name('provider.show');
+
     Route::post('transfer', 'TransferController@store')->name('transfer');
     Route::post('contact', 'ContactController@store')->name('contact');
+    Route::post('rate', 'ProviderController@rateStore')->name('rate');
 
     Route::get('/user-profile','UserController@profile')->name('userProfile');
     Route::get('/profile','ProviderController@profile')->name('providerProfile');
@@ -38,6 +42,7 @@ Route::namespace('App\Http\Controllers\Web')->group(function() {
     Route::post('product', 'ProductController@store')->name('product.store');
 
     Route::get('notifications', 'NotificationController@notifications')->name('notifications');
+    Route::get('category/{id}/providers', 'CategoryController@show')->name('category.show');
 
     Route::get('gallery/{id}/edit', 'ProductController@editGallery')->name('gallery.edit');
     Route::post('gallery/{id}/update', 'ProductController@UpdateGallery')->name('gallery.update');

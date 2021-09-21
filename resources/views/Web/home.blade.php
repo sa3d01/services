@@ -16,12 +16,23 @@
                 </p>
                 @if (!auth()->check() || auth()->user()->type=='USER')
                     <div>
-                        <div class="input-group my-3 pt-3 w-75">
-                            <input type="text" class="form-control br-25 px-4" placeholder="بحث عن مزود خدمة">
+
+                        <form action="{{ route('search-provider') }}" method="GET" class="input-group my-3 pt-3 w-75">
+                            @csrf
+                            <input required name="input_search" type="text" class="form-control br-25 px-4" placeholder="بحث عن مزود خدمة">
                             <div class="input-group-append">
-                                <a href="user-search.blade.php" class="btn btn-blue mr-3 search-btn "><i class="fas fa-search yellow"></i></a>
+                                <button type="submit" class="btn btn-blue mr-3 search-btn "><i class="fas fa-search yellow"></i></button>
                             </div>
-                        </div>
+                        </form>
+
+
+{{--                        <div class="input-group my-3 pt-3 w-75">--}}
+{{--                            <input type="text" class="form-control br-25 px-4" placeholder="بحث عن مزود خدمة">--}}
+{{--                            <div class="input-group-append">--}}
+{{--                                <a href="{{route('search-provider')}}" class="btn btn-blue mr-3 search-btn "><i class="fas fa-search yellow"></i></a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
                     </div>
                 @endif
                 <div class="w-75">

@@ -6,15 +6,15 @@
     <div class="row">
         <div class="owl-carousel owl-theme mt-3 text-center" id="fields">
             @foreach(\App\Models\Category::where('parent_id',null)->where('banned',0)->get() as $category)
-            <div class="item ">
-                <a href="user-majors.blade.php">
-                    <div class="bg-light p-3">
-                        <img src="{{$category->image}}" class="img-fluid w-auto d-inline-block" alt="">
-                        @php($category_name_column='name_'.session()->get('locale'))
-                        <h4 class="d-inline-block pr-2 m-0 blue">{{$category->$category_name_column}}</h4>
-                    </div>
-                </a>
-            </div>
+                <div class="item ">
+                    <a href="{{route('category.show',$category->id)}}">
+                        <div class="bg-light p-3">
+                            <img src="{{$category->image}}" class="img-fluid w-auto d-inline-block" alt="">
+                            @php($category_name_column='name_'.session()->get('locale'))
+                            <h4 class="d-inline-block pr-2 m-0 blue">{{$category->$category_name_column}}</h4>
+                        </div>
+                    </a>
+                </div>
             @endforeach
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="owl-carousel owl-theme mt-3" id="rated">
             @foreach(\App\Models\User::whereType('PROVIDER')->take(10)->get() as $provider)
             <div class="item ">
-                <a href="">
+                <a href="{{route('provider.show',$provider->id)}}">
                     <div class="bg-light br-25  p-3">
                         <div class="yellow f-25 w-700">
                             <i class="far fa-star"></i>

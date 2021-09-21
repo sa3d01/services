@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Models\Contact;
 use App\Models\Package;
 use App\Models\PackageUser;
+use App\Models\Rate;
 use App\Models\Social;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,6 +30,16 @@ class ProviderController extends MasterController
             $social=Social::create(['user_id'=>$id]);
         }
         $social->update($request->all());
+        return redirect()->back();
+    }
+    public function show($id)
+    {
+        $provider=User::find($id);
+        return view('Web.user-providerProfile',compact('provider'));
+    }
+    public function rateStore(Request $request)
+    {
+        Rate::create($request->all());
         return redirect()->back();
     }
     public function subscribePackagePage($id)

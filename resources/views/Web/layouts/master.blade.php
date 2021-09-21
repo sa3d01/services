@@ -45,7 +45,7 @@
 <script type="text/javascript " src="{{asset('js/bootstrap.min.js')}}"></script>
 <script type="text/javascript " src="{{asset('js/scripts.js')}}"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjBZsq9Q11itd0Vjz_05CtBmnxoQIEGK8&callback=myMap"></script>
 <!-- dropify js -->
 <script src="{{asset('js/vendor.min.js')}}"></script>
 
