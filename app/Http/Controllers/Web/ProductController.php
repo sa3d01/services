@@ -19,7 +19,7 @@ class ProductController extends MasterController
 
     public function create()
     {
-        $categories = Category::where('parent_id', null)->get();
+        $categories = Category::where('parent_id', null)->whereBanned(false)->get();
         return view('Web.provider-add', compact('categories'));
     }
 
