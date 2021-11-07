@@ -29,8 +29,8 @@
                             <tbody>
                             @foreach($rows as $row)
                                 <tr>
-                                    <td>{{\Carbon\Carbon::createFromTimestamp($row->start_date)->format('Y-M-d')}}</td>
-                                    <td>{{\Carbon\Carbon::createFromTimestamp($row->end_date)->format('Y-M-d')}}</td>
+                                    <td>{{$row->start_date}}</td>
+                                    <td>{{$row->end_date}}</td>
                                     <td>{{$row->title_ar}}</td>
                                     <td>{{$row->note_ar}}</td>
                                     <td data-toggle="modal" data-target="#imgModal{{$row->id}}">
