@@ -61,6 +61,13 @@
                                 <label class="custom-control-label" for="checkTerms">أوافق على الشروط و الأحكام</label>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="card-box">
+                                <div id="map" class="gmaps"></div>
+                                <input name="lat" type="hidden" id="lat">
+                                <input name="lng" type="hidden" id="lng">
+                            </div>
+                        </div>
                     @else
                         <div class="col-md-6">
                             <div class="form-group wow fadeInDown ">
@@ -165,6 +172,33 @@
     </div>
 @endsection
 @section('script')
+    <script>
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                // center: {lat:  window.lat   , lng:  window.lng   },
+                center: {lat: 24.774265, lng: 46.738586},
+                zoom: 15,
+                mapTypeId: 'roadmap'
+            });
+            var marker;
+            google.maps.event.addListener(map, 'click', function (event) {
+                map.setZoom();
+                var mylocation = event.latLng;
+                map.setCenter(mylocation);
+                $('#lat').val(event.latLng.lat());
+                $('#lng').val(event.latLng.lng());
+                setTimeout(function () {
+                    if (!marker)
+                        marker = new google.maps.Marker({position: mylocation, map: map});
+                    else
+                        marker.setPosition(mylocation);
+                }, 600);
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjBZsq9Q11itd0Vjz_05CtBmnxoQIEGK8&&callback=initMap" type="text/javascript">
+    </script>
     <script src="{{asset('assets/libs/toastr/toastr.min.js')}}"></script>
     <script src="{{asset('assets/js/pages/toastr.init.js')}}"></script>
     @if($errors->any())
@@ -193,4 +227,5 @@
             })
         </script>
     @endif
+
 @endsection

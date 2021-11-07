@@ -115,6 +115,7 @@
                     <h4 class="w-700 mb-3">
                         التقييمات
                     </h4>
+                    @if(auth()->check())
                     <div>
                         <form method="POST" class="border-bottom pb-4" action="{{route('rate')}}">
                             @csrf
@@ -130,6 +131,7 @@
                             </div>
                         </form>
                     </div>
+                    @endif
                     <div>
                         @foreach ($provider->rates as $rate)
                         <div class="d-flex my-3">

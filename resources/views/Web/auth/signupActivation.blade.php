@@ -8,18 +8,18 @@
                     من فضلك ادخل كود التفعيل المرسل إليك على رقم جوالك
                 </h4>
                 <form>
-                    <div class="row px-3">
+                    <div class="row">
                         <div class="form-group wow fadeInUp col-3 px-1">
-                            <input id="i4" type="number" class="i form-control text-align-last-center text-center">
+                            <input required tabindex="103" name="number_4" maxlength="1"  type="text"  class="form-control text-align-last-center text-center code" value="{{old('number_4')}}">
                         </div>
                         <div class="form-group wow fadeInUp col-3 px-1">
-                            <input id="i3" type="number" class="i form-control text-align-last-center text-center">
+                            <input required tabindex="102" name="number_3" maxlength="1" type="text" class="form-control text-align-last-center text-center code" value="{{old('number_3')}}">
                         </div>
                         <div class="form-group wow fadeInUp col-3 px-1">
-                            <input id="i2" type="number" class="i form-control text-align-last-center text-center">
+                            <input required tabindex="101" name="number_2" maxlength="1" type="text" class="form-control text-align-last-center text-center code" value="{{old('number_2')}}">
                         </div>
                         <div class="form-group wow fadeInUp col-3 px-1">
-                            <input id="i1" type="number" class="i form-control text-align-last-center text-center">
+                            <input required tabindex="100" name="number_1" maxlength="1" type="text" class="form-control text-align-last-center text-center code" value="{{old('number_1')}}">
                         </div>
                     </div>
 

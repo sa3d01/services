@@ -14,7 +14,7 @@ class ProviderController extends MasterController
 {
     public function __construct()
     {
-        $this->middleware('auth');
+      //  $this->middleware('auth');
         parent::__construct();
     }
     public function profile()
