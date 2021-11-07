@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProviderLoginResourse;
+use App\Http\Resources\UserLoginResourse;
+use App\Models\PhoneVerificationCode;
 use App\Models\Social;
 use App\Models\User;
 use App\Traits\UserPhoneVerificationTrait;
 use App\Utils\PreparePhone;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
@@ -51,6 +56,13 @@ class RegisterController extends Controller
         }else{
             $data['type']='PROVIDER';
         }
+        if ($request['lat'])
+        {
+            $data['location']=[
+                'lat'=>$request['lat'],
+                'lng'=>$request['lng'],
+            ];
+        }
         $user = User::create($data);
         $data['user_id'] = $user->id;
         Social::create($data);
@@ -60,15 +72,10 @@ class RegisterController extends Controller
         $this->createPhoneVerificationCodeForUser($user);
         if(Auth::guard($request['type'])->attempt($request->only('phone','password'),$request->filled('remember'))){
             return redirect()
-                ->route('activate',['user'=>auth()->user()]);
+                ->route('activate',['phone'=>$request['phone']]);
         }
         return $this->registerFailed();
     }
-
-
-
-
-
 
     private function validator(Request $request)
     {
@@ -97,11 +104,6 @@ class RegisterController extends Controller
         $request->validate($rules);
     }
 
-    /**
-     * Redirect back after a failed login.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     private function registerFailed()
     {
         return redirect()
@@ -112,8 +114,48 @@ class RegisterController extends Controller
 
     public function showActivationPage()
     {
-        $user=\request()->input('user');
-        return view('Web.auth.signupActivation',compact('user'));
+        $phone=\request()->input('phone');
+        return view('Web.auth.signupActivation',compact('phone'));
+    }
+
+    public function ActivationSubmit(Request $request)
+    {
+        $user = User::where('phone', $request['phone'])->first();
+        $code = $request->number_4.$request->number_3.$request->number_2.$request->number_1;
+        if ($user->phone_verified_at != null) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['هذا الحساب مفعل.']);
+        }
+        $verificationCode = PhoneVerificationCode::where([
+            'phone' => $request['phone'],
+            'code' => $code,
+        ])->latest()->first();
+        if (!$verificationCode) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['كود التفعيل غير صحيح! حاول مرة أخرى.']);
+        }
+        if (Carbon::now()->gt(Carbon::parse($verificationCode->expires_at))) {
+            return $this->sendError('Code expired. ');
+        }
+        DB::transaction(function () use ($user, $verificationCode) {
+            $now = Carbon::now();
+            $verificationCode->update(['verified_at' => $now]);
+            $user->update(['phone_verified_at' => $now]);
+        });
+        if ($user['type'] != 'USER') {
+            return redirect()
+                ->route('home')
+                ->with('status','يرجى انتظار موافقة إدارة التطبيق.');
+        } else {
+            Auth::login($user);
+            return redirect()
+                ->route('home')
+                ->with('status','You are Logged in!');
+        }
     }
 
 }

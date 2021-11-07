@@ -7,7 +7,10 @@
                 <h4 class="text-center w-700 mb-5 px-md-5">
                     من فضلك ادخل كود التفعيل المرسل إليك على رقم جوالك
                 </h4>
-                <form>
+                <form method="POST" class="row" action="{{route('activate.submit')}}">
+                    @csrf
+                    @method('POST')
+                    <input type="hidden" name="phone" value="{{$phone}}">
                     <div class="row">
                         <div class="form-group wow fadeInUp col-3 px-1">
                             <input required tabindex="103" name="number_4" maxlength="1"  type="text"  class="form-control text-align-last-center text-center code" value="{{old('number_4')}}">
@@ -22,8 +25,7 @@
                             <input required tabindex="100" name="number_1" maxlength="1" type="text" class="form-control text-align-last-center text-center code" value="{{old('number_1')}}">
                         </div>
                     </div>
-
-                    <a href="" class="btn btn-blue mt-4 w-100 wow fadeInUp">إرسال</a>
+                    <button type="submit" class="btn btn-blue mt-4 w-100 wow fadeInUp">إرسال</button>
                 </form>
             </div>
         </div>

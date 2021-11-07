@@ -1,7 +1,7 @@
 @extends('Web.layouts.master')
 @section('title', 'في الخدمة')
 @section('styles')
-    <link href="{{asset('assets/libs/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
+{{--    <link href="{{asset('assets/libs/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />--}}
 @endsection
 @section('content')
     <div class="container py-5">
@@ -30,7 +30,7 @@
                             </span>
                             @enderror
                             <div class="form-group wow fadeInDown ">
-                                <input name="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" placeholder="رقم الجوال" id="phone" pattern="(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})" oninput="setCustomValidity(''); checkValidity(); setCustomValidity(validity.valid ? '' :'برجاء ادخال رقم جوال صحيح يبدأ بـ 05');"  onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                <input name="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" placeholder="رقم الجوال" id="phone">
                             </div>
                             @error('phone')
                             <span class="invalid-feedback" role="alert">
@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-box">
-                                <div id="map" class="gmaps"></div>
+                                <div id="map" class="gmaps" style="height: 200px;width: 600px"></div>
                                 <input name="lat" type="hidden" id="lat">
                                 <input name="lng" type="hidden" id="lng">
                             </div>
@@ -196,11 +196,9 @@
             });
         }
     </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjBZsq9Q11itd0Vjz_05CtBmnxoQIEGK8&&callback=initMap" type="text/javascript">
-    </script>
-    <script src="{{asset('assets/libs/toastr/toastr.min.js')}}"></script>
-    <script src="{{asset('assets/js/pages/toastr.init.js')}}"></script>
+
+{{--    <script src="{{asset('assets/libs/toastr/toastr.min.js')}}"></script>--}}
+{{--    <script src="{{asset('assets/js/pages/toastr.init.js')}}"></script>--}}
     @if($errors->any())
         <div style="visibility: hidden" id="errors" data-content="{{$errors->first()}}"></div>
         <script type="text/javascript">
@@ -227,5 +225,7 @@
             })
         </script>
     @endif
-
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjBZsq9Q11itd0Vjz_05CtBmnxoQIEGK8&&callback=initMap" type="text/javascript">
+    </script>
 @endsection

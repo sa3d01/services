@@ -35,7 +35,7 @@
 <!-- header -->
 @include('Web.layouts.partials.header')
 <!-- content -->
-<div style="visibility: hidden" id="msg" data-content={{session()->get('status')}}></div>
+<div style="visibility: hidden" id="msg" data-content={!! session()->get('status') !!}></div>
 
 @yield('content')
 
@@ -45,7 +45,7 @@
 <script type="text/javascript " src="{{asset('js/bootstrap.min.js')}}"></script>
 <script type="text/javascript " src="{{asset('js/scripts.js')}}"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjBZsq9Q11itd0Vjz_05CtBmnxoQIEGK8&callback=myMap"></script>
+{{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjBZsq9Q11itd0Vjz_05CtBmnxoQIEGK8&callback=myMap"></script>--}}
 <!-- dropify js -->
 <script src="{{asset('js/vendor.min.js')}}"></script>
 
