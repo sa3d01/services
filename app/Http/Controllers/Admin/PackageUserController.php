@@ -32,7 +32,7 @@ class PackageUserController extends MasterController
         $transfer->refresh();
 
         $usersTokens=[];
-        if (key_exists('id',$transfer->user->device)){
+        if (is_array($transfer->user->device)){
             if ($transfer->user->device['id'] !='null'){
                 $usersTokens[]=$transfer->user->device['id'];
 
@@ -75,7 +75,7 @@ class PackageUserController extends MasterController
         $transfer->refresh();
 
         $usersTokens=[];
-        if (key_exists('id',$transfer->user->device)){
+        if (is_array($transfer->user->device)){
             if ($transfer->user->device['id'] !='null'){
                 $usersTokens[]=$transfer->user->device['id'];
                 $push = new PushNotification('fcm');

@@ -29,6 +29,7 @@
                         </ul>
                     </div>
                 </div>
+                @if($user->location)
                 <div class="col-xl-6">
                     {{--                location--}}
                     <div class="card-box">
@@ -39,6 +40,7 @@
                         <div id="map" class="gmaps" style="position: relative; overflow: hidden;" data-lat="{{$user->location['lat']}}" data-lng="{{$user->location['lng']}}"></div>
                     </div>
                 </div>
+                @endif
 {{--                credit--}}
             </div>
             {{--                products--}}

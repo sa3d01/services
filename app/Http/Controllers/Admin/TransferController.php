@@ -33,23 +33,26 @@ class TransferController extends MasterController
         $transfer->refresh();
 
         $usersTokens=[];
-        if ($transfer->user->device['id'] !='null'){
-            $usersTokens[]=$transfer->user->device['id'];
+        if (is_array($transfer->user->device)){
+            if ($transfer->user->device['id'] !='null'){
+                $usersTokens[]=$transfer->user->device['id'];
+            }
+            $push = new PushNotification('fcm');
+            $push->setMessage([
+                'notification' => array('title'=>'تمت رفض حوالتك البنكية ', 'sound' => 'default'),
+                'data' => [
+                    'title' => 'تمت رفض حوالتك البنكية',
+                    'body' => 'تمت رفض حوالتك البنكية',
+                    'status' => 'admin',
+                    'type'=>'admin',
+                ],
+                'priority' => 'high',
+            ])
+                ->setDevicesToken($usersTokens)
+                ->send()
+                ->getFeedback();
         }
-        $push = new PushNotification('fcm');
-        $push->setMessage([
-            'notification' => array('title'=>'تمت رفض حوالتك البنكية ', 'sound' => 'default'),
-            'data' => [
-                'title' => 'تمت رفض حوالتك البنكية',
-                'body' => 'تمت رفض حوالتك البنكية',
-                'status' => 'admin',
-                'type'=>'admin',
-            ],
-            'priority' => 'high',
-        ])
-            ->setDevicesToken($usersTokens)
-            ->send()
-            ->getFeedback();
+
         Notification::create([
             'receiver_id'=>$transfer->user_id,
             'admin_notify_type'=>'single',
@@ -71,23 +74,26 @@ class TransferController extends MasterController
         $transfer->refresh();
 
         $usersTokens=[];
-        if ($transfer->user->device['id'] !='null'){
-            $usersTokens[]=$transfer->user->device['id'];
+        if (is_array($transfer->user->device)){
+            if ($transfer->user->device['id'] !='null'){
+                $usersTokens[]=$transfer->user->device['id'];
+            }
+            $push = new PushNotification('fcm');
+            $push->setMessage([
+                'notification' => array('title'=>'تمت الموافقة علي حوالتك البنكية بنجاح', 'sound' => 'default'),
+                'data' => [
+                    'title' => 'تمت الموافقة علي حوالتك البنكية بنجاح',
+                    'body' => 'تمت الموافقة علي حوالتك البنكية بنجاح',
+                    'status' => 'admin',
+                    'type'=>'admin',
+                ],
+                'priority' => 'high',
+            ])
+                ->setDevicesToken($usersTokens)
+                ->send()
+                ->getFeedback();
         }
-        $push = new PushNotification('fcm');
-        $push->setMessage([
-            'notification' => array('title'=>'تمت الموافقة علي حوالتك البنكية بنجاح', 'sound' => 'default'),
-            'data' => [
-                'title' => 'تمت الموافقة علي حوالتك البنكية بنجاح',
-                'body' => 'تمت الموافقة علي حوالتك البنكية بنجاح',
-                'status' => 'admin',
-                'type'=>'admin',
-            ],
-            'priority' => 'high',
-        ])
-            ->setDevicesToken($usersTokens)
-            ->send()
-            ->getFeedback();
+
         Notification::create([
             'receiver_id'=>$transfer->user_id,
             'admin_notify_type'=>'single',

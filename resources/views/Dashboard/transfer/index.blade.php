@@ -63,7 +63,7 @@
                                                     <button class="btn btn-success waves-effect waves-light"> <i class="fa fa-user-clock mr-1"></i> <span>تأكيد</span> </button>
                                                 </form>
                                             @else
-                                                <form class="delete" data-id="{{$row->id}}" method="POST" action="{{ route('admin.package_user.destroy',[$row->id]) }}">
+                                                <form class="delete" data-id="{{$row->id}}" method="POST" action="{{ route('admin.transfer.destroy',[$row->id]) }}">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-tractor mr-1"></i> <span>حذف</span> </button>
