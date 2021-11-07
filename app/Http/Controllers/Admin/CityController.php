@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Dashboard\CityRequest;
 use App\Models\DropDown;
 use Illuminate\Http\Request;
 
@@ -31,18 +32,18 @@ class CityController extends MasterController
         return view('Dashboard.city.edit', compact('city'));
     }
 
-    public function store(Request $request)
+    public function store(CityRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['class'] = 'City';
         $this->model->create($data);
         return redirect()->route('admin.city.index')->with('created');
     }
 
-    public function update($id,Request $request)
+    public function update($id,CityRequest $request)
     {
         $city=$this->model->find($id);
-        $data = $request->all();
+        $data = $request->validated();
         $data['class'] = 'City';
         $city->update($data);
         return redirect()->route('admin.city.index')->with('created');

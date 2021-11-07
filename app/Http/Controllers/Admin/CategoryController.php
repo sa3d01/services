@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Dashboard\CategoryRequest;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class CategoryController extends MasterController
     {
         return view('Dashboard.category.create');
     }
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $category=$this->model->create($request->except('image'));
         if ($request->hasFile('image')){
@@ -44,10 +45,10 @@ class CategoryController extends MasterController
         $category=$this->model->find($id);
         return view('Dashboard.category.edit', compact('category'));
     }
-    public function update($id,Request $request)
+    public function update($id,CategoryRequest $request)
     {
         $category=$this->model->find($id);
-        $category->update($request->all());
+        $category->update($request->validated());
         return redirect()->back()->with('updated');
 
     }
